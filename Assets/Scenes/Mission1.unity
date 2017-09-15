@@ -1826,6 +1826,10 @@ MonoBehaviour:
   rootMaster: {fileID: 561476690}
   slaveTransforms: []
   masterTransforms: []
+  springGravityMultiplier: 1000
+  defaultLegSpringValue: 18000
+  defaultTorsoSpringValue: 15000
+  defaultArmSpringValue: 10000
 --- !u!1001 &1945202851
 Prefab:
   m_ObjectHideFlags: 0
