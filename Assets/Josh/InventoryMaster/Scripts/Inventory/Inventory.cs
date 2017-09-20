@@ -608,6 +608,10 @@ public class Inventory : MonoBehaviour
         {
             if (SlotContainer.transform.GetChild(i).childCount == 0)
             {
+                if (itemDatabase == null)
+                    itemDatabase = (ItemDataBaseList)Resources.Load("ItemDatabase");
+                if (prefabItem == null)
+                    prefabItem = Resources.Load("Prefabs/Item") as GameObject;
                 GameObject item = (GameObject)Instantiate(prefabItem);
                 ItemOnObject itemOnObject = item.GetComponent<ItemOnObject>();
                 itemOnObject.item = itemDatabase.getItemByID(id);

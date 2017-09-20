@@ -96,7 +96,7 @@ public class Tooltip : MonoBehaviour
         tooltipIconSize = 50;
         tooltipWidth = 150;
         tooltipHeight = 250;
-        tooltipDescSizeX = 100;
+        tooltipDescSizeX = 500;
         tooltipDescSizeY = 100;
     }
 

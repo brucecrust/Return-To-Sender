@@ -72,7 +72,7 @@ public class ConsumeItem : MonoBehaviour, IPointerDownHandler
                     //If the current equipment system slot's type corresponds to the current item's type
                     if (itemTypeOfSlot[i].Equals(item.itemType))
                     {
-                        PlayerController playerController = player.GetComponent<PlayerController>();
+                        PlayerBehaviorController playerController = player.GetComponent<PlayerBehaviorController>();
 
                         //Equip the item
                         inventory.EquipItem(item);
