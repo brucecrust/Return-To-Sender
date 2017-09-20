@@ -3,14 +3,12 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Undefined
   - Canvas
-  - Panel
-  - Slots
+  - MainInventory
   - EquipmentSystem
   - Tooltip
-  - Slot
-  - MainInventory
   layers:
   - Default
   - TransparentFX
