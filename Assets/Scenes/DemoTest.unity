@@ -339,8 +339,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nameOfFolder: Terrains
-  width: 7
-  length: 7
+  resolution: 7
   chunksToLoad: 10
   terrainList: []
   player: {fileID: 371274180}
