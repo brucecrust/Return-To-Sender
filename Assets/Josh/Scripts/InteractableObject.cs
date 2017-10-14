@@ -16,7 +16,13 @@ public class InteractableObject : MonoBehaviour {
     private GameObject player;
 
     //Use type variables
-    private bool stateUpdated = false;
+
+    /* 
+    10-14-17 B.C.
+    I commented out this line as it didn't seem to be doing anything outside of throwing a 
+    Unity warning for not being used. 
+    */
+    //private bool stateUpdated = false;
     private bool lastStateOpen = false;
     private float finishUseDistance = 3f;
 

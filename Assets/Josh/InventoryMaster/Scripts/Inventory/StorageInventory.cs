@@ -27,7 +27,7 @@ public class StorageInventory : MonoBehaviour
     Tooltip tooltip;
     Inventory inv;
 
-    GameObject player;
+    //GameObject player;
 
     static Image timerImage;
     static GameObject timer;
@@ -47,8 +47,13 @@ public class StorageInventory : MonoBehaviour
     {
         if (inputManagerDatabase == null)
             inputManagerDatabase = (InputManager)Resources.Load("InputManager");
-
-        player = GameObject.FindGameObjectWithTag("Player");
+            
+        /* 
+        10-14-17 B.C.
+        I commented out this line as it didn't seem to be doing anything outside of throwing a 
+        Unity warning for not being used. 
+        */
+        //player = GameObject.FindGameObjectWithTag("Player");
         inv = inventory.GetComponent<Inventory>();
         ItemDataBaseList inventoryItemList = (ItemDataBaseList)Resources.Load("ItemDatabase");
 
@@ -85,7 +90,12 @@ public class StorageInventory : MonoBehaviour
     void Update()
     {
 
-        float distance = Vector3.Distance(this.gameObject.transform.position, player.transform.position);
+        /* 
+        10-14-17 B.C.
+        I commented out this line as it didn't seem to be doing anything outside of throwing a 
+        Unity warning for not being used. 
+        */
+        //float distance = Vector3.Distance(this.gameObject.transform.position, player.transform.position);
         
         /*
         if (distance > distanceToOpenStorage && showStorage)

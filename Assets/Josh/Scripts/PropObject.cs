@@ -36,7 +36,12 @@ public class PropObject : MonoBehaviour {
             //If the other object is moving fast enough, break the current object
             if (brokenObjVersion && otherRB && otherRB.velocity.magnitude > 0.3f)
             {
-                GameObject newCrate = Instantiate(brokenObjVersion, transform.position, transform.rotation, transform.parent);
+                /* 
+                10-14-17 B.C.
+                I commented out this line as it didn't seem to be doing anything outside of throwing a 
+                Unity warning for not being used. 
+                */
+                //GameObject newCrate = Instantiate(brokenObjVersion, transform.position, transform.rotation, transform.parent);
                 //newCrate.transform.localScale = transform.localScale;
                 Destroy(gameObject);
 

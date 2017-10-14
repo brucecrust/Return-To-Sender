@@ -81,7 +81,13 @@ public class ConsumeItem : MonoBehaviour, IPointerDownHandler
                         if (equipmentSystem.transform.GetChild(1).GetChild(i).childCount != 0)
                         {
                             GameObject otherItemFromCharacterSystem = equipmentSystem.transform.GetChild(1).GetChild(i).GetChild(0).gameObject;
-                            Item otherSlotItem = otherItemFromCharacterSystem.GetComponent<ItemOnObject>().item;
+                            
+                            /* 
+                            10-14-17 B.C.
+                            I commented out this line as it didn't seem to be doing anything outside of throwing a 
+                            Unity warning for not being used. 
+                            */
+                            //Item otherSlotItem = otherItemFromCharacterSystem.GetComponent<ItemOnObject>().item;
 
                             if (item.itemType != ItemType.Backpack)
                                 inventory.UnEquipItem1(otherItemFromCharacterSystem.GetComponent<ItemOnObject>().item);
