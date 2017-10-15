@@ -1,0 +1,267 @@
+fileFormatVersion: 2
+guid: 4535fb0502e7aeb469dad8cdf758e92e
+timeCreated: 1508033434
+licenseType: Free
+ModelImporter:
+  serializedVersion: 21
+  fileIDToRecycleName:
+    100000: Chimney
+    100002: Chimney2
+    100004: Door3
+    100006: HorizontalWoodPanel15
+    100008: HorizontalWoodPanel16
+    100010: HorizontalWoodPanel17
+    100012: HorizontalWoodPanel18
+    100014: HorizontalWoodPanel19
+    100016: HorizontalWoodPanel20
+    100018: HorizontalWoodPanel21
+    100020: HorizontalWoodPanel22
+    100022: HorizontalWoodPanel23
+    100024: HorizontalWoodPanel24
+    100026: HorizontalWoodPanel25
+    100028: HorizontalWoodPanel26
+    100030: HorizontalWoodPanel27
+    100032: House2
+    100034: HouseWalls4
+    100036: OuterWoodPanels
+    100038: polySurface1
+    100040: polySurface11
+    100042: polySurface7
+    100044: transform1
+    100046: transform10
+    100048: transform11
+    100050: transform12
+    100052: transform13
+    100054: transform14
+    100056: transform15
+    100058: transform16
+    100060: transform17
+    100062: transform18
+    100064: transform19
+    100066: transform2
+    100068: transform20
+    100070: transform21
+    100072: transform22
+    100074: transform23
+    100076: transform24
+    100078: transform25
+    100080: transform26
+    100082: transform27
+    100084: transform28
+    100086: transform29
+    100088: transform3
+    100090: transform30
+    100092: transform31
+    100094: transform32
+    100096: transform33
+    100098: transform34
+    100100: transform35
+    100102: transform36
+    100104: transform37
+    100106: transform38
+    100108: transform39
+    100110: transform4
+    100112: transform40
+    100114: transform5
+    100116: transform6
+    100118: transform7
+    100120: transform8
+    100122: transform9
+    100124: VerticalWoodPanel22
+    100126: VerticalWoodPanel22 1
+    100128: VerticalWoodPanel23
+    100130: VerticalWoodPanel24
+    100132: VerticalWoodPanel25
+    100134: VerticalWoodPanel26
+    100136: VerticalWoodPanel27
+    100138: VerticalWoodPanel28
+    100140: VerticalWoodPanel29
+    100142: VerticalWoodPanel30
+    100144: VerticalWoodPanel31
+    100146: VerticalWoodPanel32
+    100148: VerticalWoodPanel33
+    100150: VerticalWoodPanel34
+    100152: VerticalWoodPanel35
+    100154: VerticalWoodPanel36
+    100156: VerticalWoodPanel37
+    100158: VerticalWoodPanel38
+    100160: VerticalWoodPanel39
+    100162: VerticalWoodPanel40
+    100164: VerticalWoodPanel41
+    100166: VerticalWoodPanel42
+    100168: //RootNode
+    100170: Window4
+    100172: Window5
+    100174: Window6
+    100176: Windows
+    400000: Chimney
+    400002: Chimney2
+    400004: Door3
+    400006: HorizontalWoodPanel15
+    400008: HorizontalWoodPanel16
+    400010: HorizontalWoodPanel17
+    400012: HorizontalWoodPanel18
+    400014: HorizontalWoodPanel19
+    400016: HorizontalWoodPanel20
+    400018: HorizontalWoodPanel21
+    400020: HorizontalWoodPanel22
+    400022: HorizontalWoodPanel23
+    400024: HorizontalWoodPanel24
+    400026: HorizontalWoodPanel25
+    400028: HorizontalWoodPanel26
+    400030: HorizontalWoodPanel27
+    400032: House2
+    400034: HouseWalls4
+    400036: OuterWoodPanels
+    400038: polySurface1
+    400040: polySurface11
+    400042: polySurface7
+    400044: transform1
+    400046: transform10
+    400048: transform11
+    400050: transform12
+    400052: transform13
+    400054: transform14
+    400056: transform15
+    400058: transform16
+    400060: transform17
+    400062: transform18
+    400064: transform19
+    400066: transform2
+    400068: transform20
+    400070: transform21
+    400072: transform22
+    400074: transform23
+    400076: transform24
+    400078: transform25
+    400080: transform26
+    400082: transform27
+    400084: transform28
+    400086: transform29
+    400088: transform3
+    400090: transform30
+    400092: transform31
+    400094: transform32
+    400096: transform33
+    400098: transform34
+    400100: transform35
+    400102: transform36
+    400104: transform37
+    400106: transform38
+    400108: transform39
+    400110: transform4
+    400112: transform40
+    400114: transform5
+    400116: transform6
+    400118: transform7
+    400120: transform8
+    400122: transform9
+    400124: VerticalWoodPanel22
+    400126: VerticalWoodPanel22 1
+    400128: VerticalWoodPanel23
+    400130: VerticalWoodPanel24
+    400132: VerticalWoodPanel25
+    400134: VerticalWoodPanel26
+    400136: VerticalWoodPanel27
+    400138: VerticalWoodPanel28
+    400140: VerticalWoodPanel29
+    400142: VerticalWoodPanel30
+    400144: VerticalWoodPanel31
+    400146: VerticalWoodPanel32
+    400148: VerticalWoodPanel33
+    400150: VerticalWoodPanel34
+    400152: VerticalWoodPanel35
+    400154: VerticalWoodPanel36
+    400156: VerticalWoodPanel37
+    400158: VerticalWoodPanel38
+    400160: VerticalWoodPanel39
+    400162: VerticalWoodPanel40
+    400164: VerticalWoodPanel41
+    400166: VerticalWoodPanel42
+    400168: //RootNode
+    400170: Window4
+    400172: Window5
+    400174: Window6
+    400176: Windows
+    2300000: Door3
+    2300002: VerticalWoodPanel22
+    3300000: Door3
+    3300002: VerticalWoodPanel22
+    4300000: Door3
+    4300002: VerticalWoodPanel22
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 180
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
