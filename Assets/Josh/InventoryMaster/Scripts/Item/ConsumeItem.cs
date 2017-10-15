@@ -32,39 +32,22 @@ public class ConsumeItem : MonoBehaviour, IPointerDownHandler
 
     public void OnPointerDown(PointerEventData data)
     {
-        bool gearable = false;
+        
         //Get the player's inventory
         Inventory inventory = transform.parent.parent.parent.GetComponent<Inventory>();
 
         if (equipmentSystem != null)
             itemTypeOfSlot = equipmentSystem.itemTypeOfSlots;
 
+        //Set if the current item should be consumed (or equipped)
+        bool consumable = item.itemType == ItemType.Consumable;
+
         //If we press the right mouse button to consume this item
         if (data.button == PointerEventData.InputButton.Right)
         {
-            //Item crafting below (unnecessary for this game)
-            /*item from craft system to inventory
-            if (transform.parent.GetComponent<CraftResultSlot>() != null)
-            {
-                bool check = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInventory>().inventory.GetComponent<Inventory>().checkIfItemAllreadyExist(item.itemID, item.itemValue);
-
-                if (!check)
-                {
-                    GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInventory>().inventory.GetComponent<Inventory>().addItemToInventory(item.itemID, item.itemValue);
-                    GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInventory>().inventory.GetComponent<Inventory>().stackableSettings();
-                }
-
-                tooltip.deactivateTooltip();
-                gearable = true;
-                GameObject.FindGameObjectWithTag("MainInventory").GetComponent<Inventory>().updateItemList();
-            }
-            else
-            {*/
-
-            //bool stop = false;
-
+            
             //Check the Equipment System (and equip this item to a slot in it if there is an available slot that fits the type)
-            if (equipmentSystem != null)
+            if (!consumable && equipmentSystem != null)
             {
                 //Iterate through all the equipment slots
                 for (int i = 0; i < equipmentSystem.numberOfSlots; i++)
@@ -77,7 +60,7 @@ public class ConsumeItem : MonoBehaviour, IPointerDownHandler
                         //Equip the item
                         inventory.EquipItem(item);
 
-                        //If the current equipment slot is empty
+                        //If the current equipment slot is not empty
                         if (equipmentSystem.transform.GetChild(1).GetChild(i).childCount != 0)
                         {
                             GameObject otherItemFromCharacterSystem = equipmentSystem.transform.GetChild(1).GetChild(i).GetChild(0).gameObject;
@@ -93,25 +76,13 @@ public class ConsumeItem : MonoBehaviour, IPointerDownHandler
                                 inventory.UnEquipItem1(otherItemFromCharacterSystem.GetComponent<ItemOnObject>().item);
                             if (item.itemType == ItemType.Weapon)
                                 playerController.DetachWeapon();
-
-                                /*if (this == null)
-                                {
-                                    GameObject dropItem = (GameObject)Instantiate(otherSlotItem.itemModel);
-                                    dropItem.AddComponent<PickUpItem>();
-                                    dropItem.GetComponent<PickUpItem>().item = otherSlotItem;
-                                    dropItem.transform.localPosition = player.transform.localPosition;
-                                    inventory.OnUpdateItemList();
-                                }
-                                else
-                                {*/
+                            
                                 otherItemFromCharacterSystem.transform.SetParent(this.transform.parent);
                                 otherItemFromCharacterSystem.GetComponent<RectTransform>().localPosition = Vector3.zero;
                                 if (this.gameObject.transform.parent.parent.parent.GetComponent<Hotbar>() != null)
                                     createDuplication(otherItemFromCharacterSystem);
 
                                 
-                            //}
-                            
                         }
 
                         //For handling weapon object equipping to player's hand
@@ -129,7 +100,6 @@ public class ConsumeItem : MonoBehaviour, IPointerDownHandler
                         equipmentSystem.gameObject.GetComponent<Inventory>().updateItemList();
                         inventory.updateItemList();
 
-                        gearable = true;
                         if (duplication != null)
                             Destroy(duplication.gameObject);
                         break;
@@ -138,7 +108,8 @@ public class ConsumeItem : MonoBehaviour, IPointerDownHandler
 
 
             }
-            if (!gearable)
+            //For consuming an item, rather than equipping
+            else if (consumable)
             {
 
                 Item itemFromDup = null;
@@ -172,6 +143,7 @@ public class ConsumeItem : MonoBehaviour, IPointerDownHandler
         }
     }    
 
+    //Consumes an item used in the hotbar
     public void consumeIt()
     {
         Inventory inventory = transform.parent.parent.parent.GetComponent<Inventory>();
