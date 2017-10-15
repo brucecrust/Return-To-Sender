@@ -54,16 +54,21 @@ public class Hotbar : MonoBehaviour
 
     void Update()
     {
+        //Loop over each hotbar slot
         for (int i = 0; i < slotsInTotal; i++)
         {
+            //if the keycode for the current slot is pressed
             if (Input.GetKeyDown(keyCodesForSlots[i]))
             {
+                //if the slot has an item in it
                 if (transform.GetChild(1).GetChild(i).childCount != 0)
                 {
+                    //Destroy the duplicated item ??? (not sure why this is needed)
                     if (transform.GetChild(1).GetChild(i).GetChild(0).GetComponent<ConsumeItem>().duplication != null && transform.GetChild(1).GetChild(i).GetChild(0).GetComponent<ItemOnObject>().item.maxStack == 1)
                     {
                         Destroy(transform.GetChild(1).GetChild(i).GetChild(0).GetComponent<ConsumeItem>().duplication);
                     }
+                    //Now consume the item
                     transform.GetChild(1).GetChild(i).GetChild(0).GetComponent<ConsumeItem>().consumeIt();
                 }
             }
