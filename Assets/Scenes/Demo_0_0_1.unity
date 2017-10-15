@@ -216,7 +216,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameOfFolder: Terrains
   resolution: 7
-  chunksToLoad: 2
+  chunksToLoad: 1
   instantiatedTerrainList: []
   player: {fileID: 2054888538}
 --- !u!4 &619433971
