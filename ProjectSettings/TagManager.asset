@@ -9,6 +9,8 @@ TagManager:
   - MainInventory
   - EquipmentSystem
   - Tooltip
+  - DestructibleCollider
+  - GroundType
   layers:
   - Default
   - TransparentFX
