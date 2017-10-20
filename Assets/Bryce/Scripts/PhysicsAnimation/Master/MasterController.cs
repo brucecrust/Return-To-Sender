@@ -10,7 +10,8 @@ public class MasterController : MonoBehaviour {
 	}
 	
 	void FixedUpdate () {
-		transform.position = ragdollTarget.position;
+		transform.position = new Vector3(ragdollTarget.position.x, -50f, ragdollTarget.position.z);
+		transform.rotation = ragdollTarget.rotation;
 	}
 
 	// Update is called once per frame

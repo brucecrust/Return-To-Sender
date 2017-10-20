@@ -22,31 +22,21 @@ public class RagdollController : MonoBehaviour {
 	
 	// Holds slave / master key-value pairs to later compare rotations.
 	public Dictionary<Transform, Transform> armatureDictionary;
-	public float springGravityMultiplier = 1000f;
-	public float defaultLegSpringValue = 18000f;
-	public float defaultTorsoSpringValue = 15000f;
-	public float defaultArmSpringValue = 10000f;
+
+	public float defaultLegSpringValue;
+	public float defaultTorsoSpringValue;
+	public float defaultArmSpringValue;
 	private JointDrive legJointDrive, torsoJointDrive, armJointDrive;
+
+	public GameObject deathScreen;
 
 	// Use this for initialization
 	void Start () {
 		if (Mathf.Abs(Physics.gravity.y) > 9.81f) {
-			defaultLegSpringValue += springGravityMultiplier * (Mathf.Abs(Physics.gravity.y) - 9.81f);
-			defaultTorsoSpringValue += springGravityMultiplier * (Mathf.Abs(Physics.gravity.y) - 9.81f);
-			defaultArmSpringValue += springGravityMultiplier * (Mathf.Abs(Physics.gravity.y) - 9.81f);
+			defaultLegSpringValue += defaultLegSpringValue * ((Mathf.Abs(Physics.gravity.y) - 9.81f) / 2f);
+			defaultTorsoSpringValue += defaultTorsoSpringValue * ((Mathf.Abs(Physics.gravity.y) - 9.81f) / 2f);
+			defaultArmSpringValue += defaultArmSpringValue * ((Mathf.Abs(Physics.gravity.y) - 9.81f) / 2f);
 		}
-		legJointDrive = new JointDrive();
-		legJointDrive.positionSpring = defaultLegSpringValue;
-		legJointDrive.maximumForce = float.MaxValue;
-
-		torsoJointDrive = new JointDrive();
-		torsoJointDrive.positionSpring = defaultLegSpringValue;
-		torsoJointDrive.maximumForce = float.MaxValue;
-
-		armJointDrive = new JointDrive();
-		armJointDrive.positionSpring = defaultLegSpringValue;
-		armJointDrive.maximumForce = float.MaxValue;
-
 		//attackingCounter = attackingTimer;
 
 		armatureDictionary = new Dictionary<Transform, Transform>();
@@ -67,28 +57,92 @@ public class RagdollController : MonoBehaviour {
 			}
 		}
 
-		ApplyJointValues();
+		ApplyJointValues(true);
 	}
 
 	void LateUpdate () {
-		foreach(KeyValuePair<Transform, Transform> boneTransforms in armatureDictionary) {
-			boneTransforms.Key.GetComponent<ConfigurableJoint>().SetTargetRotationLocal(boneTransforms.Value.localRotation, boneTransforms.Key.localRotation);
+		if (DeathController.isDead) {
+			foreach(KeyValuePair<Transform, Transform> boneTransforms in armatureDictionary) {
+				DropDead();
+			}
+		}
+
+		if (!DeathController.isDead) {
+			foreach(KeyValuePair<Transform, Transform> boneTransforms in armatureDictionary) {
+				if (!SpringUpOnCollision.isMoving) {
+					ApplyJointValues(false);
+					if (!boneTransforms.Key.name.ToLower().Contains("arm")) {
+						boneTransforms.Key.GetComponent<ConfigurableJoint>().SetTargetRotationLocal(boneTransforms.Value.localRotation, boneTransforms.Key.localRotation);
+					}
+				} else {
+					ApplyJointValues(true);
+					boneTransforms.Key.GetComponent<ConfigurableJoint>().SetTargetRotationLocal(boneTransforms.Value.localRotation, boneTransforms.Key.localRotation);
+				}
+			}
 		}
 	}
-
-	private void ApplyJointValues () {
+	void DropDead () {
 		foreach(KeyValuePair<Transform, Transform> boneTransforms in armatureDictionary) {
 			if (boneTransforms.Key.GetComponent<ConfigurableJoint>()) {
-				if (boneTransforms.Key.name.ToLower().Contains("shin") || boneTransforms.Key.name.ToLower().Contains("thigh")) {
-					boneTransforms.Key.GetComponent<ConfigurableJoint>().slerpDrive = legJointDrive;
-				}
+				legJointDrive = new JointDrive();
+				legJointDrive.positionSpring = 0;
+				legJointDrive.maximumForce = float.MaxValue;
 
-				if (boneTransforms.Key.name.ToLower().Contains("chest") || boneTransforms.Key.name.ToLower().Contains("head")) {
-					boneTransforms.Key.GetComponent<ConfigurableJoint>().slerpDrive = torsoJointDrive;
-				}
+				boneTransforms.Key.GetComponent<ConfigurableJoint>().slerpDrive = legJointDrive;
+			}
+		}
+		deathScreen.SetActive(true);
+		Destroy(this);
+	}
 
-				if (boneTransforms.Key.name.ToLower().Contains("arm")) {
-					boneTransforms.Key.GetComponent<ConfigurableJoint>().slerpDrive = armJointDrive;
+	private void ApplyJointValues (bool enableSlerp) {
+		if (enableSlerp) {
+			foreach(KeyValuePair<Transform, Transform> boneTransforms in armatureDictionary) {
+				if (boneTransforms.Key.GetComponent<ConfigurableJoint>()) {
+					legJointDrive = new JointDrive();
+					legJointDrive.maximumForce = float.MaxValue;
+
+					torsoJointDrive = new JointDrive();
+					torsoJointDrive.positionSpring = defaultLegSpringValue;
+					torsoJointDrive.maximumForce = float.MaxValue;
+
+					armJointDrive = new JointDrive();
+					armJointDrive.maximumForce = float.MaxValue;
+
+					if (boneTransforms.Key.name.ToLower().Contains("thigh")) {
+						legJointDrive.positionSpring = defaultLegSpringValue;
+						boneTransforms.Key.GetComponent<ConfigurableJoint>().slerpDrive = legJointDrive;
+					}
+
+					if (boneTransforms.Key.name.ToLower().Contains("shin")) {
+						legJointDrive.positionSpring = defaultLegSpringValue / 1.5f;
+						boneTransforms.Key.GetComponent<ConfigurableJoint>().slerpDrive = legJointDrive;
+					}
+
+					if (boneTransforms.Key.name.ToLower().Contains("chest") || boneTransforms.Key.name.ToLower().Contains("head")) {
+						boneTransforms.Key.GetComponent<ConfigurableJoint>().slerpDrive = torsoJointDrive;
+					}
+
+					if (boneTransforms.Key.name.ToLower().Contains("upper_arm")) {
+						armJointDrive.positionSpring = defaultArmSpringValue;
+						boneTransforms.Key.GetComponent<ConfigurableJoint>().slerpDrive = armJointDrive;
+					}
+
+					if (boneTransforms.Key.name.ToLower().Contains("forearm")) {
+						armJointDrive.positionSpring = defaultArmSpringValue / 6f;
+						boneTransforms.Key.GetComponent<ConfigurableJoint>().slerpDrive = armJointDrive;
+					}
+				}
+			}
+		} else {
+			foreach(KeyValuePair<Transform, Transform> boneTransforms in armatureDictionary) {
+				armJointDrive = new JointDrive();
+				armJointDrive.positionSpring = 0;
+				armJointDrive.maximumForce = float.MaxValue;
+				if (boneTransforms.Key.GetComponent<ConfigurableJoint>()) {
+					if (boneTransforms.Key.name.ToLower().Contains("arm")) {
+						boneTransforms.Key.GetComponent<ConfigurableJoint>().slerpDrive = armJointDrive;
+					}
 				}
 			}
 		}

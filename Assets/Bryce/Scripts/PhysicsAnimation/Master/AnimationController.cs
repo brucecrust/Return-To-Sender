@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AnimationController : MonoBehaviour {
 
-	private Animator masterAnimator;
+	public static Animator masterAnimator;
 
 	// Use this for initialization
 	void Start () {
@@ -13,15 +13,15 @@ public class AnimationController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-		if (Input.GetMouseButtonDown(0)) {
-			masterAnimator.SetTrigger("isAttacking");
+		//if (Input.GetMouseButtonDown(0)) {
+		//	masterAnimator.SetTrigger("isAttacking");
+		//}
+
+		if (Input.GetKey("w") || Input.GetKey("s")) {
+			masterAnimator.SetBool("isWalking", true);
 		}
 
-		if (Input.GetKey("w")) {
-			 masterAnimator.SetBool("isWalking", true);
-		}
-
-		if (Input.GetKeyUp("w")) {
+		if (Input.GetKeyUp("w") || Input.GetKey("s")) {
 			masterAnimator.SetBool("isWalking", false);
 		}
 	}

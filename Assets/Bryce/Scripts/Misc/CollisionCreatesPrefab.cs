@@ -7,6 +7,7 @@ public class CollisionCreatesPrefab : MonoBehaviour {
 	public static float requiredForce;
 	private bool hasCollided;
 	private Component[] childrenList;
+	private Renderer renderer;
 
 	// Use this for initialization
 	void Start () {
@@ -23,8 +24,11 @@ public class CollisionCreatesPrefab : MonoBehaviour {
 			childrenList = GetComponentsInChildren(typeof(MeshRenderer));
 			foreach (MeshRenderer mr in childrenList) {
 				if (mr.transform.gameObject.GetComponent<Rigidbody>()) {
+					if (mr.transform.gameObject.GetComponent<Renderer>()) {
+						renderer = mr.transform.gameObject.GetComponent<Renderer>();
+					}
 					mr.enabled = true;
-					mr.transform.gameObject.GetComponent<Rigidbody>().mass = Random.Range(200, 300);
+					mr.transform.gameObject.GetComponent<Rigidbody>().mass = (renderer.bounds.size.x + renderer.bounds.size.y) * 15f;
 				}
 			}
 		}

@@ -11,6 +11,8 @@ TagManager:
   - Tooltip
   - DestructibleCollider
   - GroundType
+  - Terrain
+  - Ragdoll
   layers:
   - Default
   - TransparentFX
@@ -21,7 +23,7 @@ TagManager:
   - 
   - 
   - NoSeePlayer
-  - 
+  - Ragdoll
   - 
   - 
   - 
