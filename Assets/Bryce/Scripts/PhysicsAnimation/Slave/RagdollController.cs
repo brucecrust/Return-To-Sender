@@ -33,9 +33,9 @@ public class RagdollController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		if (Mathf.Abs(Physics.gravity.y) > 9.81f) {
-			defaultLegSpringValue += defaultLegSpringValue * ((Mathf.Abs(Physics.gravity.y) - 9.81f) / 2f);
-			defaultTorsoSpringValue += defaultTorsoSpringValue * ((Mathf.Abs(Physics.gravity.y) - 9.81f) / 2f);
-			defaultArmSpringValue += defaultArmSpringValue * ((Mathf.Abs(Physics.gravity.y) - 9.81f) / 2f);
+			defaultLegSpringValue += defaultLegSpringValue * ((Mathf.Abs(Physics.gravity.y) - 9.81f));
+			defaultTorsoSpringValue += defaultTorsoSpringValue * ((Mathf.Abs(Physics.gravity.y) - 9.81f));
+			defaultArmSpringValue += defaultArmSpringValue * ((Mathf.Abs(Physics.gravity.y) - 9.81f));
 		}
 		//attackingCounter = attackingTimer;
 
@@ -60,7 +60,7 @@ public class RagdollController : MonoBehaviour {
 		ApplyJointValues(true);
 	}
 
-	void LateUpdate () {
+	void Update () {
 		if (DeathController.isDead) {
 			foreach(KeyValuePair<Transform, Transform> boneTransforms in armatureDictionary) {
 				DropDead();
@@ -103,7 +103,6 @@ public class RagdollController : MonoBehaviour {
 					legJointDrive.maximumForce = float.MaxValue;
 
 					torsoJointDrive = new JointDrive();
-					torsoJointDrive.positionSpring = defaultLegSpringValue;
 					torsoJointDrive.maximumForce = float.MaxValue;
 
 					armJointDrive = new JointDrive();
@@ -115,11 +114,17 @@ public class RagdollController : MonoBehaviour {
 					}
 
 					if (boneTransforms.Key.name.ToLower().Contains("shin")) {
-						legJointDrive.positionSpring = defaultLegSpringValue / 1.5f;
+						legJointDrive.positionSpring = defaultLegSpringValue  / 6f;
 						boneTransforms.Key.GetComponent<ConfigurableJoint>().slerpDrive = legJointDrive;
 					}
 
-					if (boneTransforms.Key.name.ToLower().Contains("chest") || boneTransforms.Key.name.ToLower().Contains("head")) {
+					if (boneTransforms.Key.name.ToLower().Contains("chest")) {
+						torsoJointDrive.positionSpring = defaultTorsoSpringValue;
+						boneTransforms.Key.GetComponent<ConfigurableJoint>().slerpDrive = torsoJointDrive;
+					}
+
+					if (boneTransforms.Key.name.ToLower().Contains("head")) {
+						torsoJointDrive.positionSpring = defaultTorsoSpringValue;
 						boneTransforms.Key.GetComponent<ConfigurableJoint>().slerpDrive = torsoJointDrive;
 					}
 
@@ -129,7 +134,12 @@ public class RagdollController : MonoBehaviour {
 					}
 
 					if (boneTransforms.Key.name.ToLower().Contains("forearm")) {
-						armJointDrive.positionSpring = defaultArmSpringValue / 6f;
+						armJointDrive.positionSpring = defaultArmSpringValue / 5f;
+						boneTransforms.Key.GetComponent<ConfigurableJoint>().slerpDrive = armJointDrive;
+					}
+
+					if (boneTransforms.Key.name.ToLower().Contains("hand")) {
+						armJointDrive.positionSpring = defaultArmSpringValue;
 						boneTransforms.Key.GetComponent<ConfigurableJoint>().slerpDrive = armJointDrive;
 					}
 				}
@@ -137,7 +147,7 @@ public class RagdollController : MonoBehaviour {
 		} else {
 			foreach(KeyValuePair<Transform, Transform> boneTransforms in armatureDictionary) {
 				armJointDrive = new JointDrive();
-				armJointDrive.positionSpring = 0;
+				armJointDrive.positionSpring = defaultArmSpringValue / 5f;
 				armJointDrive.maximumForce = float.MaxValue;
 				if (boneTransforms.Key.GetComponent<ConfigurableJoint>()) {
 					if (boneTransforms.Key.name.ToLower().Contains("arm")) {

@@ -30,16 +30,16 @@ public class SpringUpOnCollision : MonoBehaviour {
 			isMoving = true;
 			// If one of the slave's feet is touching the ground, spring him upward for the next step.
 			if (leftFootCollisionHandler.onGround) {
-				leftShin.AddForce(-leftShin.transform.forward * (upwardSpringSpeed / 3f), ForceMode.Impulse);
-				leftShin.AddForce(leftShin.transform.right * upwardSpringSpeed, ForceMode.Impulse);
+				//leftShin.AddForce(-leftShin.transform.forward * (upwardSpringSpeed / 3f), ForceMode.Impulse);
+				leftShin.MovePosition(leftShin.transform.right * upwardSpringSpeed);
 			}
 			if (rightFootCollisionHandler.onGround) {
-				rightShin.AddForce(-rightShin.transform.forward * (upwardSpringSpeed / 3f), ForceMode.Impulse);
-				leftShin.AddForce(rightShin.transform.right * upwardSpringSpeed, ForceMode.Impulse);
+				//rightShin.AddForce(-rightShin.transform.forward * (upwardSpringSpeed / 3f), ForceMode.Impulse);
+				rightShin.MovePosition(leftShin.transform.right * upwardSpringSpeed);
 			}
 		}
 
-		if (Input.GetKey("s")) {
+		/*if (Input.GetKey("s")) {
 			isMoving = true;
 			if (leftFootCollisionHandler.onGround) {
 				leftShin.AddForce(leftShin.transform.forward * (upwardSpringSpeed / 3f), ForceMode.Impulse);
@@ -49,7 +49,7 @@ public class SpringUpOnCollision : MonoBehaviour {
 				rightShin.AddForce(rightShin.transform.forward * (upwardSpringSpeed / 3f), ForceMode.Impulse);
 				leftShin.AddForce(rightShin.transform.right * upwardSpringSpeed, ForceMode.Impulse);
 			}
-		}
+		}*/
 
 		if (Input.GetKeyUp("w") || Input.GetKeyUp("s")) {
 			isMoving = false;

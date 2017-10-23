@@ -18,8 +18,12 @@ public class GroundCollisionHandler : MonoBehaviour {
 	void OnCollisionEnter (Collision other) { 
 		if (other.gameObject.tag == "GroundType" || other.gameObject.tag == "Terrain") {
 			onGround = true;
-		} else {
-			print (other.gameObject.tag + " " + other.gameObject.name);
+		}
+	}
+
+	void OnCollisionStay(Collision other) {
+		if (other.gameObject.tag == "GroundType" || other.gameObject.tag == "Terrain") {
+			onGround = true;
 		}
 	}
 	
@@ -31,6 +35,12 @@ public class GroundCollisionHandler : MonoBehaviour {
 		if (other.gameObject.tag == "GroundType" || other.gameObject.GetComponent<Terrain>()) {
 			onGround = true;
 		} 
+	}
+
+	void OnTriggerStay(Collider other) {
+		if (other.gameObject.tag == "GroundType" || other.gameObject.tag == "Terrain") {
+			onGround = true;
+		}
 	}
 	
 	void OnTriggerExit (Collider other) {

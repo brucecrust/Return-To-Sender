@@ -24,5 +24,13 @@ public class AnimationController : MonoBehaviour {
 		if (Input.GetKeyUp("w") || Input.GetKey("s")) {
 			masterAnimator.SetBool("isWalking", false);
 		}
+
+		if (Input.GetKey(KeyCode.LeftShift)) {
+			masterAnimator.SetBool("isSprinting", true);
+		}
+
+		if (Input.GetKeyUp(KeyCode.LeftShift)) {
+			masterAnimator.SetBool("isSprinting", false);
+		}
 	}
 }

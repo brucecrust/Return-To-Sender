@@ -56,8 +56,8 @@ public class PlayerController : MonoBehaviour {
         //transform.Translate(x, 0, 0);
         //	transform.Translate(0, 0, z);
 
-		spring.rootBone.transform.Translate(x, 0, 0);
-		spring.rootBone.transform.Translate(0, 0, z);
+		spring.rootBone.transform.GetComponent<Rigidbody>().MovePosition(spring.rootBone.transform.position + new Vector3(x, 0, 0));
+		spring.rootBone.transform.GetComponent<Rigidbody>().MovePosition(spring.rootBone.transform.position + new Vector3(0, 0, z));
 
 		spring.rootBone.eulerAngles = new Vector3(spring.rootBone.eulerAngles.x, camera.transform.eulerAngles.y, spring.rootBone.eulerAngles.z);
 
@@ -92,7 +92,7 @@ public class PlayerController : MonoBehaviour {
 			accelerationMaximum += sprintSpeed;
 			accelerationRate += sprintIncreaseRate;
 			isSprinting = true;
-			AnimationController.masterAnimator.speed = 1.5f;
+			//AnimationController.masterAnimator.speed = 1.5f;
 		}
 
 		if (Input.GetKeyUp(KeyCode.LeftShift)) {
@@ -101,7 +101,7 @@ public class PlayerController : MonoBehaviour {
 			if (accelerationForce > accelerationMaximum) {
 				accelerationForce = accelerationMaximum;
 			}
-			AnimationController.masterAnimator.speed = 1f;
+			//AnimationController.masterAnimator.speed = 1f;
 		}
 	}
 
