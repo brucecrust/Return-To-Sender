@@ -374,6 +374,41 @@ ModelImporter:
     4300064: House2_House2_polySurface12
     4300066: DoorHinge1
     4300068: Door2
+    6400000: Door2
+    6400002: DoorHinge1
+    6400004: HorizontalWoodPanel1
+    6400006: HorizontalWoodPanel11
+    6400008: HorizontalWoodPanel13
+    6400010: HorizontalWoodPanel14
+    6400012: HorizontalWoodPanel2
+    6400014: HorizontalWoodPanel3
+    6400016: HorizontalWoodPanel4
+    6400018: HorizontalWoodPanel5
+    6400020: HorizontalWoodPanel6
+    6400022: HorizontalWoodPanel7
+    6400024: HorizontalWoodPanel8
+    6400026: House2_House2_polySurface12
+    6400028: VerticalWoodPanel10
+    6400030: VerticalWoodPanel12
+    6400032: VerticalWoodPanel13
+    6400034: VerticalWoodPanel14
+    6400036: VerticalWoodPanel15
+    6400038: VerticalWoodPanel16
+    6400040: VerticalWoodPanel17
+    6400042: VerticalWoodPanel18
+    6400044: VerticalWoodPanel19
+    6400046: VerticalWoodPanel2
+    6400048: VerticalWoodPanel21
+    6400050: VerticalWoodPanel3
+    6400052: VerticalWoodPanel4
+    6400054: VerticalWoodPanel5
+    6400056: VerticalWoodPanel6
+    6400058: VerticalWoodPanel7
+    6400060: VerticalWoodPanel8
+    6400062: VerticalWoodPanel9
+    6400064: Window1
+    6400066: Window2
+    6400068: Window3
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -404,7 +439,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 180
     meshCompression: 0
-    addColliders: 0
+    addColliders: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1

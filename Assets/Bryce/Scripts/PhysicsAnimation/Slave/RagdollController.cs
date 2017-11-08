@@ -17,72 +17,56 @@ public class RagdollController : MonoBehaviour {
 
 
 	// Lists used to store transforms from their respective slave / master model.
-	public Transform[] slaveTransforms;
+	public ConfigurableJoint[] slaveTransforms;
 	public Transform[] masterTransforms;
 	
 	// Holds slave / master key-value pairs to later compare rotations.
-	public Dictionary<Transform, Transform> armatureDictionary;
+	public Dictionary<ConfigurableJoint, Transform> armatureDictionary;
 
-	public float defaultLegSpringValue;
-	public float defaultTorsoSpringValue;
-	public float defaultArmSpringValue;
+	public float defaultSpringValue;
 	private JointDrive legJointDrive, torsoJointDrive, armJointDrive;
 
-	public GameObject deathScreen;
+	//public GameObject deathScreen;
 
 	// Use this for initialization
 	void Start () {
 		if (Mathf.Abs(Physics.gravity.y) > 9.81f) {
-			defaultLegSpringValue += defaultLegSpringValue * ((Mathf.Abs(Physics.gravity.y) - 9.81f));
-			defaultTorsoSpringValue += defaultTorsoSpringValue * ((Mathf.Abs(Physics.gravity.y) - 9.81f));
-			defaultArmSpringValue += defaultArmSpringValue * ((Mathf.Abs(Physics.gravity.y) - 9.81f));
+			defaultSpringValue += defaultSpringValue * ((Mathf.Abs(Physics.gravity.y) - 9.81f));
 		}
-		//attackingCounter = attackingTimer;
 
-		armatureDictionary = new Dictionary<Transform, Transform>();
-
+		armatureDictionary = new Dictionary<ConfigurableJoint, Transform>();
+		
 		// Grab all children with a Transform component, and add them to lists.
-		slaveTransforms = rootSlave.GetComponentsInChildren<Transform>();
+		slaveTransforms = rootSlave.GetComponentsInChildren<ConfigurableJoint>();
 
 		masterTransforms = rootMaster.GetComponentsInChildren<Transform>();
 
 		// For every bone in those lists, check if it has a joint. If it does, add it to the dictionary.
-		foreach (Transform slaveBone in slaveTransforms) {
+		foreach (ConfigurableJoint slaveBone in slaveTransforms) {
 			foreach (Transform masterBone in masterTransforms) {
 				if (slaveBone.name == masterBone.name) {
-					if (slaveBone.GetComponent<ConfigurableJoint>()) {
-						armatureDictionary.Add(slaveBone, masterBone);
-					}
+					armatureDictionary.Add(slaveBone, masterBone);
 				}
 			}
 		}
-
-		ApplyJointValues(true);
+		ApplyJointValues();
 	}
 
 	void Update () {
 		if (DeathController.isDead) {
-			foreach(KeyValuePair<Transform, Transform> boneTransforms in armatureDictionary) {
+			foreach(KeyValuePair<ConfigurableJoint, Transform> boneTransforms in armatureDictionary) {
 				DropDead();
 			}
 		}
 
 		if (!DeathController.isDead) {
-			foreach(KeyValuePair<Transform, Transform> boneTransforms in armatureDictionary) {
-				if (!SpringUpOnCollision.isMoving) {
-					ApplyJointValues(false);
-					if (!boneTransforms.Key.name.ToLower().Contains("arm")) {
-						boneTransforms.Key.GetComponent<ConfigurableJoint>().SetTargetRotationLocal(boneTransforms.Value.localRotation, boneTransforms.Key.localRotation);
-					}
-				} else {
-					ApplyJointValues(true);
-					boneTransforms.Key.GetComponent<ConfigurableJoint>().SetTargetRotationLocal(boneTransforms.Value.localRotation, boneTransforms.Key.localRotation);
-				}
+			foreach(KeyValuePair<ConfigurableJoint, Transform> boneTransforms in armatureDictionary) {
+				boneTransforms.Key.SetTargetRotationLocal(boneTransforms.Value.localRotation, boneTransforms.Key.GetComponent<Transform>().localRotation);
 			}
 		}
 	}
 	void DropDead () {
-		foreach(KeyValuePair<Transform, Transform> boneTransforms in armatureDictionary) {
+		foreach(KeyValuePair<ConfigurableJoint, Transform> boneTransforms in armatureDictionary) {
 			if (boneTransforms.Key.GetComponent<ConfigurableJoint>()) {
 				legJointDrive = new JointDrive();
 				legJointDrive.positionSpring = 0;
@@ -91,13 +75,12 @@ public class RagdollController : MonoBehaviour {
 				boneTransforms.Key.GetComponent<ConfigurableJoint>().slerpDrive = legJointDrive;
 			}
 		}
-		deathScreen.SetActive(true);
+		//deathScreen.SetActive(true);
 		Destroy(this);
 	}
 
-	private void ApplyJointValues (bool enableSlerp) {
-		if (enableSlerp) {
-			foreach(KeyValuePair<Transform, Transform> boneTransforms in armatureDictionary) {
+	private void ApplyJointValues () {
+			foreach(KeyValuePair<ConfigurableJoint, Transform> boneTransforms in armatureDictionary) {
 				if (boneTransforms.Key.GetComponent<ConfigurableJoint>()) {
 					legJointDrive = new JointDrive();
 					legJointDrive.maximumForce = float.MaxValue;
@@ -108,53 +91,41 @@ public class RagdollController : MonoBehaviour {
 					armJointDrive = new JointDrive();
 					armJointDrive.maximumForce = float.MaxValue;
 
-					if (boneTransforms.Key.name.ToLower().Contains("thigh")) {
-						legJointDrive.positionSpring = defaultLegSpringValue;
+					if (boneTransforms.Key.name.ToLower().Contains("upper leg")) {
+						legJointDrive.positionSpring = defaultSpringValue;
 						boneTransforms.Key.GetComponent<ConfigurableJoint>().slerpDrive = legJointDrive;
 					}
 
-					if (boneTransforms.Key.name.ToLower().Contains("shin")) {
-						legJointDrive.positionSpring = defaultLegSpringValue  / 6f;
+					if (boneTransforms.Key.name.ToLower().Contains("lower leg")) {
+						legJointDrive.positionSpring = defaultSpringValue;
 						boneTransforms.Key.GetComponent<ConfigurableJoint>().slerpDrive = legJointDrive;
 					}
 
-					if (boneTransforms.Key.name.ToLower().Contains("chest")) {
-						torsoJointDrive.positionSpring = defaultTorsoSpringValue;
+					if (boneTransforms.Key.name.ToLower().Contains("spine")) {
+						torsoJointDrive.positionSpring = defaultSpringValue / 5f;
 						boneTransforms.Key.GetComponent<ConfigurableJoint>().slerpDrive = torsoJointDrive;
 					}
 
 					if (boneTransforms.Key.name.ToLower().Contains("head")) {
-						torsoJointDrive.positionSpring = defaultTorsoSpringValue;
+						torsoJointDrive.positionSpring = defaultSpringValue;
 						boneTransforms.Key.GetComponent<ConfigurableJoint>().slerpDrive = torsoJointDrive;
 					}
 
-					if (boneTransforms.Key.name.ToLower().Contains("upper_arm")) {
-						armJointDrive.positionSpring = defaultArmSpringValue;
+					if (boneTransforms.Key.name.ToLower().Contains("upper arm")) {
+						armJointDrive.positionSpring = defaultSpringValue;
 						boneTransforms.Key.GetComponent<ConfigurableJoint>().slerpDrive = armJointDrive;
 					}
 
-					if (boneTransforms.Key.name.ToLower().Contains("forearm")) {
-						armJointDrive.positionSpring = defaultArmSpringValue / 5f;
+					if (boneTransforms.Key.name.ToLower().Contains("lower arm")) {
+						armJointDrive.positionSpring = defaultSpringValue / 15f;
 						boneTransforms.Key.GetComponent<ConfigurableJoint>().slerpDrive = armJointDrive;
 					}
 
 					if (boneTransforms.Key.name.ToLower().Contains("hand")) {
-						armJointDrive.positionSpring = defaultArmSpringValue;
+						armJointDrive.positionSpring = defaultSpringValue / 10f;
 						boneTransforms.Key.GetComponent<ConfigurableJoint>().slerpDrive = armJointDrive;
 					}
 				}
 			}
-		} else {
-			foreach(KeyValuePair<Transform, Transform> boneTransforms in armatureDictionary) {
-				armJointDrive = new JointDrive();
-				armJointDrive.positionSpring = defaultArmSpringValue / 5f;
-				armJointDrive.maximumForce = float.MaxValue;
-				if (boneTransforms.Key.GetComponent<ConfigurableJoint>()) {
-					if (boneTransforms.Key.name.ToLower().Contains("arm")) {
-						boneTransforms.Key.GetComponent<ConfigurableJoint>().slerpDrive = armJointDrive;
-					}
-				}
-			}
-		}
 	}
 }

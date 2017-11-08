@@ -28,8 +28,12 @@ public class CollisionCreatesPrefab : MonoBehaviour {
 						renderer = mr.transform.gameObject.GetComponent<Renderer>();
 					}
 					mr.enabled = true;
+					mr.GetComponent<MeshCollider>().enabled = true;
 					mr.transform.gameObject.GetComponent<Rigidbody>().mass = (renderer.bounds.size.x + renderer.bounds.size.y) * 15f;
 				}
+			}
+			if (transform.GetComponent<MeshCollider>()) {
+				transform.GetComponent<MeshCollider>().enabled = false;
 			}
 		}
 	}

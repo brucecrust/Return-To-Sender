@@ -31,6 +31,11 @@ public class SmoothMouseLook : MonoBehaviour {
  
 	void Update ()
 	{
+		if (Input.GetAxis("Mouse ScrollWheel") > 0 || Input.GetAxis("Mouse ScrollWheel") < 0) {
+			transform.GetComponent<Camera>().fieldOfView -= Input.GetAxis("Mouse ScrollWheel") * 10f;
+			print(Input.GetAxis("Mouse ScrollWheel"));
+		}
+
 		if (axes == RotationAxes.MouseXAndY)
 		{			
 			rotAverageY = 0f;

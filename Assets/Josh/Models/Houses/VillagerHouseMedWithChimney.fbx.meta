@@ -405,6 +405,48 @@ ModelImporter:
     4300082: Window3
     4300084: Door2
     4300086: DoorHinge
+    6400000: Chimney 1
+    6400002: Door2
+    6400004: DoorHinge
+    6400006: HorizontalWoodPanel1
+    6400008: HorizontalWoodPanel10
+    6400010: HorizontalWoodPanel11
+    6400012: HorizontalWoodPanel13
+    6400014: HorizontalWoodPanel14
+    6400016: HorizontalWoodPanel2
+    6400018: HorizontalWoodPanel3
+    6400020: HorizontalWoodPanel4
+    6400022: HorizontalWoodPanel5
+    6400024: HorizontalWoodPanel6
+    6400026: HorizontalWoodPanel7
+    6400028: HorizontalWoodPanel8
+    6400030: HorizontalWoodPanel9
+    6400032: polySurface12
+    6400034: polySurface15
+    6400036: VerticalWoodPanel1
+    6400038: VerticalWoodPanel10
+    6400040: VerticalWoodPanel11
+    6400042: VerticalWoodPanel12
+    6400044: VerticalWoodPanel13
+    6400046: VerticalWoodPanel14
+    6400048: VerticalWoodPanel15
+    6400050: VerticalWoodPanel16
+    6400052: VerticalWoodPanel17
+    6400054: VerticalWoodPanel18
+    6400056: VerticalWoodPanel19
+    6400058: VerticalWoodPanel2
+    6400060: VerticalWoodPanel20
+    6400062: VerticalWoodPanel21
+    6400064: VerticalWoodPanel3
+    6400066: VerticalWoodPanel4
+    6400068: VerticalWoodPanel5
+    6400070: VerticalWoodPanel6
+    6400072: VerticalWoodPanel7
+    6400074: VerticalWoodPanel8
+    6400076: VerticalWoodPanel9
+    6400078: Window1
+    6400080: Window2
+    6400082: Window3
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -435,7 +477,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 180
     meshCompression: 0
-    addColliders: 0
+    addColliders: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1

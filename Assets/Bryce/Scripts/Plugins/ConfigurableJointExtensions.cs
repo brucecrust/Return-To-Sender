@@ -5,6 +5,7 @@ public static class ConfigurableJointExtensions {
 	/// Sets a joint's targetRotation to match a given local rotation.
 	/// The joint transform's local rotation must be cached on Start and passed into this method.
 	/// </summary>
+	private static int count = 1;
 	public static void SetTargetRotationLocal (this ConfigurableJoint joint, Quaternion targetLocalRotation, Quaternion startLocalRotation)
 	{
 		if (joint.configuredInWorldSpace) {

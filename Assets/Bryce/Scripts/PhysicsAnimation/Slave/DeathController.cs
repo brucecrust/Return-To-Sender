@@ -15,19 +15,34 @@ public class DeathController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+		if (isDead) {
+			Die();
+		}
 	}
 
 	void OnCollisionEnter(Collision other) {
-		if (other.gameObject.GetComponent<Rigidbody>()) {
-			if (other.gameObject.GetComponent<Rigidbody>().mass > 100f) {
-				if (other.relativeVelocity.magnitude > 10f) {
-					isDead = true;
-					spring.rootBone.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
-					Destroy(playerController);
-					Destroy(spring);
+		if (!isDead) {
+			if (other.gameObject.GetComponent<Rigidbody>()) {
+				if (other.gameObject.GetComponent<Rigidbody>().mass > 100f) {
+					if (other.relativeVelocity.magnitude > 100f) {
+						isDead = true;
+						print ("THIS KILLED YOU " + " | " + other.relativeVelocity.magnitude + " with a mass of " + other.gameObject.GetComponent<Rigidbody>().mass);
+					}
 				}
 			}
+
+			if (other.gameObject.layer == 9) {
+				if (other.relativeVelocity.magnitude > 40f) {
+					isDead = true;
+					print ("THIS KILLED YOU " + " | " + other.relativeVelocity.magnitude);
+				}
+			}	
 		}
+	}
+
+	void Die() {
+		spring.rootBone.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+		Destroy(playerController);
+		Destroy(spring);
 	}
 }

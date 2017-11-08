@@ -6,8 +6,8 @@ public class SpringUpOnCollision : MonoBehaviour {
 	private RagdollController ragdollController;
 
 	public Transform rootBone;
-
-	// Collision handlers that signify when to add an upward force to the legs; important for walking / running animations.
+	public Rigidbody leftThigh;
+	public Rigidbody rightThigh;
 	public Rigidbody leftShin;
 	public Rigidbody rightShin;
 	public GroundCollisionHandler leftFootCollisionHandler;
@@ -30,12 +30,12 @@ public class SpringUpOnCollision : MonoBehaviour {
 			isMoving = true;
 			// If one of the slave's feet is touching the ground, spring him upward for the next step.
 			if (leftFootCollisionHandler.onGround) {
-				//leftShin.AddForce(-leftShin.transform.forward * (upwardSpringSpeed / 3f), ForceMode.Impulse);
-				leftShin.MovePosition(leftShin.transform.right * upwardSpringSpeed);
+				leftThigh.AddForce(-leftThigh.transform.up * upwardSpringSpeed);
+				leftShin.AddForce(-leftShin.transform.up * upwardSpringSpeed);
 			}
 			if (rightFootCollisionHandler.onGround) {
-				//rightShin.AddForce(-rightShin.transform.forward * (upwardSpringSpeed / 3f), ForceMode.Impulse);
-				rightShin.MovePosition(leftShin.transform.right * upwardSpringSpeed);
+				rightThigh.AddForce(-leftShin.transform.up * upwardSpringSpeed);
+				rightShin.AddForce(-leftShin.transform.up * upwardSpringSpeed);
 			}
 		}
 

@@ -447,6 +447,56 @@ ModelImporter:
     4300094: polySurface21
     4300096: DoorHinge3
     4300098: Door2
+    6400000: Chimney 1
+    6400002: Door2
+    6400004: DoorHinge3
+    6400006: HorizontalWoodPanel1
+    6400008: HorizontalWoodPanel13
+    6400010: HorizontalWoodPanel2
+    6400012: HorizontalWoodPanel28
+    6400014: HorizontalWoodPanel29
+    6400016: HorizontalWoodPanel3
+    6400018: HorizontalWoodPanel30
+    6400020: HorizontalWoodPanel31
+    6400022: HorizontalWoodPanel32
+    6400024: HorizontalWoodPanel33
+    6400026: HorizontalWoodPanel34
+    6400028: HorizontalWoodPanel35
+    6400030: HorizontalWoodPanel36
+    6400032: HorizontalWoodPanel37
+    6400034: HorizontalWoodPanel38
+    6400036: HorizontalWoodPanel4
+    6400038: HorizontalWoodPanel5
+    6400040: HorizontalWoodPanel6
+    6400042: HorizontalWoodPanel7
+    6400044: HorizontalWoodPanel8
+    6400046: polySurface15
+    6400048: polySurface21
+    6400050: VerticalWoodPanel1
+    6400052: VerticalWoodPanel10
+    6400054: VerticalWoodPanel11
+    6400056: VerticalWoodPanel12
+    6400058: VerticalWoodPanel13
+    6400060: VerticalWoodPanel14
+    6400062: VerticalWoodPanel15
+    6400064: VerticalWoodPanel17
+    6400066: VerticalWoodPanel2
+    6400068: VerticalWoodPanel3
+    6400070: VerticalWoodPanel4
+    6400072: VerticalWoodPanel43
+    6400074: VerticalWoodPanel44
+    6400076: VerticalWoodPanel45
+    6400078: VerticalWoodPanel46
+    6400080: VerticalWoodPanel47
+    6400082: VerticalWoodPanel48
+    6400084: VerticalWoodPanel49
+    6400086: VerticalWoodPanel5
+    6400088: VerticalWoodPanel6
+    6400090: VerticalWoodPanel7
+    6400092: VerticalWoodPanel8
+    6400094: VerticalWoodPanel9
+    6400096: Window8
+    6400098: Window9
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -477,7 +527,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 180
     meshCompression: 0
-    addColliders: 0
+    addColliders: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1

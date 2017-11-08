@@ -13,6 +13,7 @@ TagManager:
   - GroundType
   - Terrain
   - Ragdoll
+  - OnFire
   layers:
   - Default
   - TransparentFX
@@ -25,8 +26,8 @@ TagManager:
   - NoSeePlayer
   - Ragdoll
   - NoCollision
-  - 
-  - 
+  - GroundType
+  - Flammable
   - 
   - 
   - 
