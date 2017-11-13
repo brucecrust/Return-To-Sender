@@ -9,6 +9,8 @@ using UnityEngine;
 	extension to move the slave bones to match their master's rotation.
 */
 public class RagdollController : MonoBehaviour {
+	public static int removedBodyParts;
+
 	// Declare root slave and master models.
 	public Transform rootSlave;
 	public Transform rootMaster;
@@ -21,15 +23,25 @@ public class RagdollController : MonoBehaviour {
 	public Transform[] masterTransforms;
 	
 	// Holds slave / master key-value pairs to later compare rotations.
-	public Dictionary<ConfigurableJoint, Transform> armatureDictionary;
+	public static Dictionary<ConfigurableJoint, Transform> armatureDictionary;
 
-	public float defaultSpringValue;
+	public float defaultSpringValue, armAttackForce;
 	private JointDrive legJointDrive, torsoJointDrive, armJointDrive;
+
+	private PlayerController player;
+	
+	public DeathController death;
 
 	//public GameObject deathScreen;
 
 	// Use this for initialization
 	void Start () {
+		if (transform.tag == "Ragdoll") {
+			player = GetComponent<PlayerController>();
+		}
+
+		removedBodyParts = 0;
+
 		if (Mathf.Abs(Physics.gravity.y) > 9.81f) {
 			defaultSpringValue += defaultSpringValue * ((Mathf.Abs(Physics.gravity.y) - 9.81f));
 		}
@@ -52,17 +64,47 @@ public class RagdollController : MonoBehaviour {
 		ApplyJointValues();
 	}
 
-	void Update () {
-		if (DeathController.isDead) {
+	void Update() {
+		print (removedBodyParts);
+		if (removedBodyParts >= 2 && transform.tag != "Ragdoll") {
+			DeathController.isDead = true;
+		}
+	}
+
+	void FixedUpdate () {
+		/*if (DeathController.isDead) {
 			foreach(KeyValuePair<ConfigurableJoint, Transform> boneTransforms in armatureDictionary) {
 				DropDead();
 			}
+		}*/
+
+		//if (!DeathController.isDead) {
+			foreach(KeyValuePair<ConfigurableJoint, Transform> boneTransforms in armatureDictionary) {
+				if (boneTransforms.Key.name.ToLower().Contains("spine")) {
+					boneTransforms.Key.SetTargetRotationLocal(boneTransforms.Value.localRotation, Quaternion.Euler(
+						new Vector3(player.camera.transform.localEulerAngles.x, 0, 0)));
+				} else {
+					boneTransforms.Key.SetTargetRotationLocal(boneTransforms.Value.localRotation, boneTransforms.Key.GetComponent<Transform>().localRotation);
+				}
+			}
+		//}
+
+		if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1) || Input.GetMouseButtonDown(2)) {
+			foreach(KeyValuePair<ConfigurableJoint, Transform> boneTransforms in armatureDictionary) {
+				if (boneTransforms.Key.name.ToLower().Contains("arm") && boneTransforms.Key.name.ToLower().Contains("r") && transform.tag == "Ragdoll") {
+					armJointDrive.positionSpring = defaultSpringValue * 10f;
+					boneTransforms.Key.GetComponent<ConfigurableJoint>().slerpDrive = armJointDrive;
+				}
+
+				if (boneTransforms.Key.name.ToLower().Contains("spine")) {
+					armJointDrive.positionSpring = defaultSpringValue * 10f;
+					boneTransforms.Key.GetComponent<ConfigurableJoint>().slerpDrive = armJointDrive;
+				}
+			}
 		}
 
-		if (!DeathController.isDead) {
-			foreach(KeyValuePair<ConfigurableJoint, Transform> boneTransforms in armatureDictionary) {
-				boneTransforms.Key.SetTargetRotationLocal(boneTransforms.Value.localRotation, boneTransforms.Key.GetComponent<Transform>().localRotation);
-			}
+		if (Input.GetMouseButtonUp(0) || Input.GetMouseButtonUp(1) || Input.GetMouseButtonUp(2)) {
+			ApplyJointValues();
 		}
 	}
 	void DropDead () {
@@ -76,6 +118,7 @@ public class RagdollController : MonoBehaviour {
 			}
 		}
 		//deathScreen.SetActive(true);
+		death.Die();
 		Destroy(this);
 	}
 
@@ -102,7 +145,7 @@ public class RagdollController : MonoBehaviour {
 					}
 
 					if (boneTransforms.Key.name.ToLower().Contains("spine")) {
-						torsoJointDrive.positionSpring = defaultSpringValue / 5f;
+						torsoJointDrive.positionSpring = defaultSpringValue;
 						boneTransforms.Key.GetComponent<ConfigurableJoint>().slerpDrive = torsoJointDrive;
 					}
 
@@ -117,12 +160,12 @@ public class RagdollController : MonoBehaviour {
 					}
 
 					if (boneTransforms.Key.name.ToLower().Contains("lower arm")) {
-						armJointDrive.positionSpring = defaultSpringValue / 15f;
+						armJointDrive.positionSpring = defaultSpringValue;
 						boneTransforms.Key.GetComponent<ConfigurableJoint>().slerpDrive = armJointDrive;
 					}
 
 					if (boneTransforms.Key.name.ToLower().Contains("hand")) {
-						armJointDrive.positionSpring = defaultSpringValue / 10f;
+						armJointDrive.positionSpring = defaultSpringValue / 2f;
 						boneTransforms.Key.GetComponent<ConfigurableJoint>().slerpDrive = armJointDrive;
 					}
 				}

@@ -31,16 +31,13 @@ public class DeathController : MonoBehaviour {
 				}
 			}
 
-			if (other.gameObject.layer == 9) {
-				if (other.relativeVelocity.magnitude > 40f) {
-					isDead = true;
-					print ("THIS KILLED YOU " + " | " + other.relativeVelocity.magnitude);
-				}
+			if (other.gameObject.tag == "Weapon") {
+				isDead = true;
 			}	
 		}
 	}
 
-	void Die() {
+	public void Die() {
 		spring.rootBone.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
 		Destroy(playerController);
 		Destroy(spring);
