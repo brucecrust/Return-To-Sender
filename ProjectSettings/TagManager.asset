@@ -3,7 +3,19 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Undefined
+  - Canvas
+  - MainInventory
+  - EquipmentSystem
+  - Tooltip
+  - DestructibleCollider
+  - GroundType
+  - Terrain
+  - Ragdoll
+  - OnFire
+  - Weapon
+  - Disabled
   layers:
   - Default
   - TransparentFX
@@ -13,12 +25,12 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - NoSeePlayer
+  - Ragdoll
+  - NoCollision
+  - GroundType
+  - Flammable
+  - Ignore
   - 
   - 
   - 
