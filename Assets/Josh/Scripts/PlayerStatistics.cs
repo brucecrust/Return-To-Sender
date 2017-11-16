@@ -1,13 +1,24 @@
+<<<<<<< HEAD
 ﻿using System;
+=======
+﻿using System;
+>>>>>>> 899eeccb8251bbd1771259362b821d44aaac99c7
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
+<<<<<<< HEAD
 public class PlayerStatistics : MonoBehaviour {
 
     public float positionX, positionY, positionZ;
 
+=======
+public class PlayerStatistics : MonoBehaviour {
+
+    public float positionX, positionY, positionZ;
+
+>>>>>>> 899eeccb8251bbd1771259362b821d44aaac99c7
     public float maxHP;
     public float currentHP;
     public float maxStamina;

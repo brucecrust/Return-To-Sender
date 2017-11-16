@@ -112,6 +112,7 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties: []
+<<<<<<< HEAD
     clipAnimations:
     - serializedVersion: 16
       name: Default
@@ -477,6 +478,9 @@ ModelImporter:
       maskType: 3
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
+=======
+    clipAnimations: []
+>>>>>>> 899eeccb8251bbd1771259362b821d44aaac99c7
     isReadable: 1
   meshes:
     lODScreenPercentages: []

@@ -36,7 +36,10 @@ public class RagdollController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+<<<<<<< HEAD
 
+=======
+>>>>>>> 899eeccb8251bbd1771259362b821d44aaac99c7
 		if (transform.tag == "Ragdoll") {
 			player = GetComponent<PlayerController>();
 		}
@@ -66,6 +69,10 @@ public class RagdollController : MonoBehaviour {
 	}
 
 	void Update() {
+<<<<<<< HEAD
+=======
+		print (removedBodyParts);
+>>>>>>> 899eeccb8251bbd1771259362b821d44aaac99c7
 		if (removedBodyParts >= 2 && transform.tag != "Ragdoll") {
 			DeathController.isDead = true;
 		}
@@ -80,10 +87,19 @@ public class RagdollController : MonoBehaviour {
 
 		//if (!DeathController.isDead) {
 			foreach(KeyValuePair<ConfigurableJoint, Transform> boneTransforms in armatureDictionary) {
+<<<<<<< HEAD
 				if (boneTransforms.Key) {
 					boneTransforms.Key.SetTargetRotationLocal(boneTransforms.Value.localRotation, boneTransforms.Key.GetComponent<Transform>().localRotation);
 				}
 				
+=======
+				if (boneTransforms.Key.name.ToLower().Contains("spine")) {
+					boneTransforms.Key.SetTargetRotationLocal(boneTransforms.Value.localRotation, Quaternion.Euler(
+						new Vector3(player.camera.transform.localEulerAngles.x, 0, 0)));
+				} else {
+					boneTransforms.Key.SetTargetRotationLocal(boneTransforms.Value.localRotation, boneTransforms.Key.GetComponent<Transform>().localRotation);
+				}
+>>>>>>> 899eeccb8251bbd1771259362b821d44aaac99c7
 			}
 		//}
 
