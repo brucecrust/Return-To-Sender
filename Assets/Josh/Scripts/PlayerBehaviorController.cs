@@ -14,7 +14,6 @@ public class PlayerBehaviorController : MonoBehaviour {
 		
 	}
 
-<<<<<<< HEAD
     public void AttachWeapon(GameObject weaponModel)
     {
         Debug.Log("TODO: Attach the weapon that has just been selected in the inventory here");
@@ -37,29 +36,5 @@ public class PlayerBehaviorController : MonoBehaviour {
         else
             Debug.Log("TODO: set the player equipped bool back to unarmed");
         
-=======
-    public void AttachWeapon(GameObject weaponModel)
-    {
-        Debug.Log("TODO: Attach the weapon that has just been selected in the inventory here");
-    }
-
-    public void DetachWeapon()
-    {
-        Debug.Log("TODO: Detach any weapon held by the player here");
-
-    }
-
-    public void SetWeaponEquipped(bool equipped, WeaponType type = WeaponType.None)
-    {
-        if (equipped)
-        {
-            Debug.Log("TODO: handle animation state for holding weapon of type WeaponType");
-            //TODO: Set a bool here indicating the player is holding a weapon
-            //TODO: set an animation integer on, so that the player changes stance to holding the weapon type
-        }
-        else
-            Debug.Log("TODO: set the player equipped bool back to unarmed");
-        
->>>>>>> 899eeccb8251bbd1771259362b821d44aaac99c7
     }
 }
