@@ -9,14 +9,9 @@ public class GroundCollisionController : MonoBehaviour {
 			onGround = true;
 		}
 	}
-
-	void OnTriggerStay(Collider other) {
-		if (other.gameObject.tag == "Ground") {
-			onGround = true;
-		}
-	}
-
+    
 	void OnTriggerExit(Collider other) {
-		onGround = false;
+        if (other.gameObject.tag == "Ground")
+            onGround = false;
 	}
 }

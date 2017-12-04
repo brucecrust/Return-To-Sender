@@ -1,41 +1,27 @@
 fileFormatVersion: 2
-guid: cebe313894e0b1c4fa85eb719eb6d0c5
-timeCreated: 1508033115
+guid: 88728e0f291d5a6498c9a7c742662d10
+timeCreated: 1512185599
 licenseType: Free
 ModelImporter:
   serializedVersion: 21
   fileIDToRecycleName:
-    100000: Dagger_Basic_Base
-    100002: Dagger_Basic_Blade
-    100004: //RootNode
-    100006: Handle
-    100008: HandleBase
-    100010: HandleGuard
-    100012: transform2
-    400000: Dagger_Basic_Base
-    400002: Dagger_Basic_Blade
-    400004: //RootNode
-    400006: Handle
-    400008: HandleBase
-    400010: HandleGuard
-    400012: transform2
-    2300000: Dagger_Basic_Blade
-    2300002: Handle
-    2300004: HandleBase
-    2300006: HandleGuard
-    3300000: Dagger_Basic_Blade
-    3300002: Handle
-    3300004: HandleBase
-    3300006: HandleGuard
-    4300000: Dagger_Basic_Blade
-    4300002: Handle
-    4300004: HandleBase
-    4300006: HandleGuard
-    6400000: Dagger_Basic_Blade
-    6400002: Handle
-    6400004: HandleBase
-    6400006: HandleGuard
-    9500000: //RootNode
+    100000: House3_polySurface10
+    100002: House3_polySurface10_DoorHinge2
+    100004: House3_polySurface10_DoorHinge2_Door2
+    100006: //RootNode
+    400000: House3_polySurface10
+    400002: House3_polySurface10_DoorHinge2
+    400004: House3_polySurface10_DoorHinge2_Door2
+    400006: //RootNode
+    2300000: House3_polySurface10
+    2300002: House3_polySurface10_DoorHinge2
+    2300004: House3_polySurface10_DoorHinge2_Door2
+    3300000: House3_polySurface10
+    3300002: House3_polySurface10_DoorHinge2
+    3300004: House3_polySurface10_DoorHinge2_Door2
+    4300000: House3_polySurface10
+    4300002: House3_polySurface10_DoorHinge2
+    4300004: House3_polySurface10_DoorHinge2_Door2
   materials:
     importMaterials: 1
     materialName: 0
@@ -63,9 +49,9 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 2.5
+    globalScale: 1
     meshCompression: 0
-    addColliders: 1
+    addColliders: 0
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
@@ -105,7 +91,7 @@ ModelImporter:
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 2
+  animationType: 0
   humanoidOversampling: 1
   additionalBone: 0
   userData: 
