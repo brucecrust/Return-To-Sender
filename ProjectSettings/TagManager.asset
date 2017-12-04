@@ -16,6 +16,7 @@ TagManager:
   - OnFire
   - Weapon
   - Disabled
+  - Ground
   layers:
   - Default
   - TransparentFX

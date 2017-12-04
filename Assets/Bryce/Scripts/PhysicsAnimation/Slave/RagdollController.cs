@@ -12,11 +12,9 @@ public class RagdollController : MonoBehaviour {
 	public static int removedBodyParts;
 
 	// Declare root slave and master models.
-	public Transform rootSlave;
+	private Transform rootSlave;
 	public Transform rootMaster;
-
-	// Declare root bone and the slave model's respective sword model.
-
+	public Rigidbody rootCoG;
 
 	// Lists used to store transforms from their respective slave / master model.
 	public ConfigurableJoint[] slaveTransforms;
@@ -25,23 +23,15 @@ public class RagdollController : MonoBehaviour {
 	// Holds slave / master key-value pairs to later compare rotations.
 	public static Dictionary<ConfigurableJoint, Transform> armatureDictionary;
 
-	public float defaultSpringValue, armAttackForce;
-	private JointDrive legJointDrive, torsoJointDrive, armJointDrive;
+	public float defaultSpringValue;
 
-	private PlayerController player;
+	private JointDrive jointDrive;
 	
-	public DeathController death;
-
-	//public GameObject deathScreen;
+	private bool onGround;
 
 	// Use this for initialization
 	void Start () {
-
-		if (transform.tag == "Ragdoll") {
-			player = GetComponent<PlayerController>();
-		}
-
-		removedBodyParts = 0;
+		rootSlave = transform;
 
 		if (Mathf.Abs(Physics.gravity.y) > 9.81f) {
 			defaultSpringValue += defaultSpringValue * ((Mathf.Abs(Physics.gravity.y) - 9.81f));
@@ -62,110 +52,35 @@ public class RagdollController : MonoBehaviour {
 				}
 			}
 		}
-		ApplyJointValues();
+
+		ApplyJointValues(false);
 	}
 
 	void Update() {
-		if (removedBodyParts >= 2 && transform.tag != "Ragdoll") {
-			DeathController.isDead = true;
+		if (!GroundCollisionController.onGround) {
+			ApplyJointValues(true);
+		} else {
+			ApplyJointValues(false);
 		}
 	}
 
 	void FixedUpdate () {
-		/*if (DeathController.isDead) {
 			foreach(KeyValuePair<ConfigurableJoint, Transform> boneTransforms in armatureDictionary) {
-				DropDead();
+				boneTransforms.Key.SetTargetRotationLocal(boneTransforms.Value.localRotation, boneTransforms.Key.GetComponent<Transform>().localRotation);
 			}
-		}*/
-
-		//if (!DeathController.isDead) {
-			foreach(KeyValuePair<ConfigurableJoint, Transform> boneTransforms in armatureDictionary) {
-				if (boneTransforms.Key) {
-					boneTransforms.Key.SetTargetRotationLocal(boneTransforms.Value.localRotation, boneTransforms.Key.GetComponent<Transform>().localRotation);
-				}
-				
-			}
-		//}
-
-		if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1) || Input.GetMouseButtonDown(2)) {
-			foreach(KeyValuePair<ConfigurableJoint, Transform> boneTransforms in armatureDictionary) {
-				if (boneTransforms.Key.name.ToLower().Contains("arm") && boneTransforms.Key.name.ToLower().Contains("r") && transform.tag == "Ragdoll") {
-					armJointDrive.positionSpring = defaultSpringValue * 10f;
-					boneTransforms.Key.GetComponent<ConfigurableJoint>().slerpDrive = armJointDrive;
-				}
-
-				if (boneTransforms.Key.name.ToLower().Contains("spine")) {
-					armJointDrive.positionSpring = defaultSpringValue * 10f;
-					boneTransforms.Key.GetComponent<ConfigurableJoint>().slerpDrive = armJointDrive;
-				}
-			}
-		}
-
-		if (Input.GetMouseButtonUp(0) || Input.GetMouseButtonUp(1) || Input.GetMouseButtonUp(2)) {
-			ApplyJointValues();
-		}
-	}
-	void DropDead () {
-		foreach(KeyValuePair<ConfigurableJoint, Transform> boneTransforms in armatureDictionary) {
-			if (boneTransforms.Key.GetComponent<ConfigurableJoint>()) {
-				legJointDrive = new JointDrive();
-				legJointDrive.positionSpring = 0;
-				legJointDrive.maximumForce = float.MaxValue;
-
-				boneTransforms.Key.GetComponent<ConfigurableJoint>().slerpDrive = legJointDrive;
-			}
-		}
-		//deathScreen.SetActive(true);
-		death.Die();
-		Destroy(this);
 	}
 
-	private void ApplyJointValues () {
+	private void ApplyJointValues (bool ragdoll) {
 			foreach(KeyValuePair<ConfigurableJoint, Transform> boneTransforms in armatureDictionary) {
 				if (boneTransforms.Key.GetComponent<ConfigurableJoint>()) {
-					legJointDrive = new JointDrive();
-					legJointDrive.maximumForce = float.MaxValue;
-
-					torsoJointDrive = new JointDrive();
-					torsoJointDrive.maximumForce = float.MaxValue;
-
-					armJointDrive = new JointDrive();
-					armJointDrive.maximumForce = float.MaxValue;
-
-					if (boneTransforms.Key.name.ToLower().Contains("upper leg")) {
-						legJointDrive.positionSpring = defaultSpringValue;
-						boneTransforms.Key.GetComponent<ConfigurableJoint>().slerpDrive = legJointDrive;
+					jointDrive = new JointDrive();
+					jointDrive.maximumForce = float.MaxValue;
+					if (!ragdoll) {
+						jointDrive.positionSpring = defaultSpringValue;
+					} else {
+						jointDrive.positionSpring = 0f;
 					}
-
-					if (boneTransforms.Key.name.ToLower().Contains("lower leg")) {
-						legJointDrive.positionSpring = defaultSpringValue;
-						boneTransforms.Key.GetComponent<ConfigurableJoint>().slerpDrive = legJointDrive;
-					}
-
-					if (boneTransforms.Key.name.ToLower().Contains("spine")) {
-						torsoJointDrive.positionSpring = defaultSpringValue;
-						boneTransforms.Key.GetComponent<ConfigurableJoint>().slerpDrive = torsoJointDrive;
-					}
-
-					if (boneTransforms.Key.name.ToLower().Contains("head")) {
-						torsoJointDrive.positionSpring = defaultSpringValue;
-						boneTransforms.Key.GetComponent<ConfigurableJoint>().slerpDrive = torsoJointDrive;
-					}
-
-					if (boneTransforms.Key.name.ToLower().Contains("upper arm")) {
-						armJointDrive.positionSpring = defaultSpringValue;
-						boneTransforms.Key.GetComponent<ConfigurableJoint>().slerpDrive = armJointDrive;
-					}
-
-					if (boneTransforms.Key.name.ToLower().Contains("lower arm")) {
-						armJointDrive.positionSpring = defaultSpringValue;
-						boneTransforms.Key.GetComponent<ConfigurableJoint>().slerpDrive = armJointDrive;
-					}
-
-					if (boneTransforms.Key.name.ToLower().Contains("hand")) {
-						armJointDrive.positionSpring = defaultSpringValue / 2f;
-						boneTransforms.Key.GetComponent<ConfigurableJoint>().slerpDrive = armJointDrive;
-					}
+					boneTransforms.Key.GetComponent<ConfigurableJoint>().slerpDrive = jointDrive;
 				}
 			}
 	}
