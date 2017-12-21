@@ -1,0 +1,247 @@
+fileFormatVersion: 2
+guid: 99effe7830bd28640bd8c8b4e40af02e
+timeCreated: 1513888783
+licenseType: Free
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: floor_square_171
+    100002: floor_square_172
+    100004: floor_square_173
+    100006: floor_square_175
+    100008: floor_square_176
+    100010: floor_square_177
+    100012: floor_square_178
+    100014: //RootNode
+    100016: roof_end_188
+    100018: roof_straight_189
+    100020: roof_straight_190
+    100022: roof_straight_192
+    100024: stairs_wood_174
+    100026: wall_corner_159
+    100028: wall_corner_180
+    100030: wall_doorwayRound_169
+    100032: wall_straight_164
+    100034: wall_straight_165
+    100036: wall_straight_166
+    100038: wall_straight_167
+    100040: wall_straight_187
+    100042: wall_windowRound_160
+    100044: wall_windowRound_163
+    100046: wall_windowRound_168
+    100048: wall_windowRound_181
+    100050: wall_windowRound_183
+    100052: wall_windowRound_193
+    100054: wall_windowRound_194
+    100056: wall_windowRound_195
+    400000: floor_square_171
+    400002: floor_square_172
+    400004: floor_square_173
+    400006: floor_square_175
+    400008: floor_square_176
+    400010: floor_square_177
+    400012: floor_square_178
+    400014: //RootNode
+    400016: roof_end_188
+    400018: roof_straight_189
+    400020: roof_straight_190
+    400022: roof_straight_192
+    400024: stairs_wood_174
+    400026: wall_corner_159
+    400028: wall_corner_180
+    400030: wall_doorwayRound_169
+    400032: wall_straight_164
+    400034: wall_straight_165
+    400036: wall_straight_166
+    400038: wall_straight_167
+    400040: wall_straight_187
+    400042: wall_windowRound_160
+    400044: wall_windowRound_163
+    400046: wall_windowRound_168
+    400048: wall_windowRound_181
+    400050: wall_windowRound_183
+    400052: wall_windowRound_193
+    400054: wall_windowRound_194
+    400056: wall_windowRound_195
+    2300000: floor_square_171
+    2300002: floor_square_172
+    2300004: floor_square_173
+    2300006: floor_square_175
+    2300008: floor_square_176
+    2300010: floor_square_177
+    2300012: floor_square_178
+    2300014: roof_end_188
+    2300016: roof_straight_189
+    2300018: roof_straight_190
+    2300020: roof_straight_192
+    2300022: stairs_wood_174
+    2300024: wall_corner_159
+    2300026: wall_corner_180
+    2300028: wall_doorwayRound_169
+    2300030: wall_straight_164
+    2300032: wall_straight_165
+    2300034: wall_straight_166
+    2300036: wall_straight_167
+    2300038: wall_straight_187
+    2300040: wall_windowRound_160
+    2300042: wall_windowRound_163
+    2300044: wall_windowRound_168
+    2300046: wall_windowRound_181
+    2300048: wall_windowRound_183
+    2300050: wall_windowRound_193
+    2300052: wall_windowRound_194
+    2300054: wall_windowRound_195
+    3300000: floor_square_171
+    3300002: floor_square_172
+    3300004: floor_square_173
+    3300006: floor_square_175
+    3300008: floor_square_176
+    3300010: floor_square_177
+    3300012: floor_square_178
+    3300014: roof_end_188
+    3300016: roof_straight_189
+    3300018: roof_straight_190
+    3300020: roof_straight_192
+    3300022: stairs_wood_174
+    3300024: wall_corner_159
+    3300026: wall_corner_180
+    3300028: wall_doorwayRound_169
+    3300030: wall_straight_164
+    3300032: wall_straight_165
+    3300034: wall_straight_166
+    3300036: wall_straight_167
+    3300038: wall_straight_187
+    3300040: wall_windowRound_160
+    3300042: wall_windowRound_163
+    3300044: wall_windowRound_168
+    3300046: wall_windowRound_181
+    3300048: wall_windowRound_183
+    3300050: wall_windowRound_193
+    3300052: wall_windowRound_194
+    3300054: wall_windowRound_195
+    4300000: floor_square_171
+    4300002: floor_square_172
+    4300004: floor_square_173
+    4300006: floor_square_175
+    4300008: floor_square_176
+    4300010: floor_square_177
+    4300012: floor_square_178
+    4300014: roof_end_188
+    4300016: roof_straight_189
+    4300018: roof_straight_190
+    4300020: roof_straight_192
+    4300022: stairs_wood_174
+    4300024: wall_corner_159
+    4300026: wall_corner_180
+    4300028: wall_doorwayRound_169
+    4300030: wall_straight_164
+    4300032: wall_straight_165
+    4300034: wall_straight_166
+    4300036: wall_straight_167
+    4300038: wall_straight_187
+    4300040: wall_windowRound_160
+    4300042: wall_windowRound_163
+    4300044: wall_windowRound_168
+    4300046: wall_windowRound_181
+    4300048: wall_windowRound_183
+    4300050: wall_windowRound_193
+    4300052: wall_windowRound_194
+    4300054: wall_windowRound_195
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lightStone
+    second: {fileID: 2100000, guid: f337ce65a36a7d5479d4f1bbb08ad19a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: roof
+    second: {fileID: 2100000, guid: 227f18b709370b648bbb821db40d3fec, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: stone
+    second: {fileID: 2100000, guid: 4df17c3e02cc0a64b810971c2be806d4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: wood
+    second: {fileID: 2100000, guid: 2da2c63f88eb451418670cd8bd38803f, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

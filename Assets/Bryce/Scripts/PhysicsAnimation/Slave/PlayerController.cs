@@ -45,7 +45,12 @@ public class PlayerController : MonoBehaviour {
 
     void Start()
     {
-        playerStats = GetComponent<PlayerStatistics>();
+        // Adding a check for the Component `PlayerStatistics`, as it was throwing NullReferenceException errors.
+        if (GetComponent<PlayerStatistics>()) {
+            playerStats = GetComponent<PlayerStatistics>();
+        } else  {
+            Debug.LogWarning("You must attach a `PlayerStatistics` component.", transform);
+        }
         cameraT = Camera.main.transform;
         masterAnimator = GetComponent<Animator>();
         rbody = slavePlayerT.GetComponent<Rigidbody>();
@@ -183,10 +188,13 @@ public class PlayerController : MonoBehaviour {
         //Set the player rotation based on the forward/sideward input
         if (inputDir != Vector2.zero)
         {
+            masterAnimator.SetBool("Walk", true);
             float targetRotation = Mathf.Atan2(inputDir.x, inputDir.y) * Mathf.Rad2Deg + cameraT.eulerAngles.y;
             //slavePlayerT.eulerAngles = Vector3.up * Mathf.SmoothDampAngle(slavePlayerT.eulerAngles.y, targetRotation, ref turnSmoothVelocity, turnSmoothTime);
             slavePlayerT.eulerAngles = new Vector3(slavePlayerT.eulerAngles.x, Mathf.SmoothDampAngle(slavePlayerT.eulerAngles.y, targetRotation, ref turnSmoothVelocity, turnSmoothTime),
                 slavePlayerT.eulerAngles.z);
+        } else {
+            masterAnimator.SetBool("Walk", false);
         }
 
         bool running = false;
