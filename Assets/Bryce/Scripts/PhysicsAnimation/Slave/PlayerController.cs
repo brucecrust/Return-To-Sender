@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour {
 
     Transform cameraT;
     public Transform slavePlayerT;
-    private Rigidbody rbody;
+    public Rigidbody slaveCOG;
 
     //This variable indicates how is the current state of character.
     private int playerState;
@@ -37,7 +37,7 @@ public class PlayerController : MonoBehaviour {
     float currentSpeed;
     float velocityY;
     //Jumping
-    public float jumpHeight = 20;
+    public float jumpHeight;
     [Range(0, 1)]
     public float airControlPercent;
 
@@ -53,7 +53,7 @@ public class PlayerController : MonoBehaviour {
         }
         cameraT = Camera.main.transform;
         masterAnimator = GetComponent<Animator>();
-        rbody = slavePlayerT.GetComponent<Rigidbody>();
+        slaveCOG = slavePlayerT.GetComponent<Rigidbody>();
 
         playerState = 0;
 
@@ -234,7 +234,7 @@ public class PlayerController : MonoBehaviour {
     {
         float jumpVelocity = Mathf.Sqrt(jumpHeight);
         velocityY = jumpVelocity;
-        rbody.AddForce(Vector3.up * jumpHeight);
+        slaveCOG.AddForce(Vector3.up * jumpHeight);
     }
 
     float GetModifiedSmoothTime(float smoothTime)

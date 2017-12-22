@@ -76,9 +76,14 @@ public class RagdollController : MonoBehaviour {
 					jointDrive = new JointDrive();
 					jointDrive.maximumForce = float.MaxValue;
 					if (!ragdoll) {
-						jointDrive.positionSpring = defaultSpringValue;
+						if (boneTransforms.Key.name.ToLower().Contains("lower")) {
+							jointDrive.positionSpring = defaultSpringValue / 2f;
+						} else {
+							jointDrive.positionSpring = defaultSpringValue;
+						}
+						
 					} else {
-						jointDrive.positionSpring = 0f;
+						jointDrive.positionSpring = 250f;
 					}
 					boneTransforms.Key.GetComponent<ConfigurableJoint>().slerpDrive = jointDrive;
 				}
