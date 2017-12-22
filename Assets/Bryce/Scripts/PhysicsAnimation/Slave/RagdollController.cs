@@ -83,7 +83,7 @@ public class RagdollController : MonoBehaviour {
 						}
 						
 					} else {
-						jointDrive.positionSpring = 250f;
+						jointDrive.positionSpring = 0;
 					}
 					boneTransforms.Key.GetComponent<ConfigurableJoint>().slerpDrive = jointDrive;
 				}

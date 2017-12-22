@@ -40,6 +40,7 @@ public class PlayerController : MonoBehaviour {
     public float jumpHeight;
     [Range(0, 1)]
     public float airControlPercent;
+    public static bool isWalking;
 
 
 
@@ -188,12 +189,14 @@ public class PlayerController : MonoBehaviour {
         //Set the player rotation based on the forward/sideward input
         if (inputDir != Vector2.zero)
         {
+            isWalking = true;
             masterAnimator.SetBool("Walk", true);
             float targetRotation = Mathf.Atan2(inputDir.x, inputDir.y) * Mathf.Rad2Deg + cameraT.eulerAngles.y;
             //slavePlayerT.eulerAngles = Vector3.up * Mathf.SmoothDampAngle(slavePlayerT.eulerAngles.y, targetRotation, ref turnSmoothVelocity, turnSmoothTime);
             slavePlayerT.eulerAngles = new Vector3(slavePlayerT.eulerAngles.x, Mathf.SmoothDampAngle(slavePlayerT.eulerAngles.y, targetRotation, ref turnSmoothVelocity, turnSmoothTime),
                 slavePlayerT.eulerAngles.z);
         } else {
+            isWalking = false;
             masterAnimator.SetBool("Walk", false);
         }
 
