@@ -41,8 +41,8 @@ public class PlayerController : MonoBehaviour {
     [Range(0, 1)]
     public float airControlPercent;
     public static bool isWalking;
-
-
+    public GameObject weapon;
+    private bool toggleWeapon;
 
     void Start()
     {
@@ -102,6 +102,10 @@ public class PlayerController : MonoBehaviour {
                 Jump();
         }
 
+        if (Input.GetKeyDown("h")) {
+            toggleWeapon = !toggleWeapon;
+            ToggleWeapon(toggleWeapon);
+        }
     }
 
     private void SetAnimState()
@@ -224,13 +228,17 @@ public class PlayerController : MonoBehaviour {
         float targetSpeed = ((running) ? runSpeed : moveSpeed) * inputDir.magnitude;
         currentSpeed = Mathf.SmoothDamp(currentSpeed, targetSpeed, ref speedSmoothVelocity, GetModifiedSmoothTime(speedSmoothTime));
 
-        Vector3 velocity = transform.forward * currentSpeed;
+        Vector3 velocity = slaveCOG.transform.forward * currentSpeed;
 
-        transform.Translate(velocity * Time.deltaTime, Space.World);
+        slaveCOG.transform.Translate(velocity * Time.deltaTime, Space.World);
 
         float animationSpeedPercent = ((running) ? currentSpeed / runSpeed : currentSpeed / moveSpeed * 0.5f);
         masterAnimator.SetFloat("speedPercent", animationSpeedPercent, speedSmoothTime, Time.deltaTime);
         
+    }
+
+    void ToggleWeapon(bool toggle) {
+        weapon.SetActive(toggle);
     }
 
     void Jump()
