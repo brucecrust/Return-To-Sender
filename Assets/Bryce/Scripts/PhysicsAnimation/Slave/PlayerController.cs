@@ -40,7 +40,7 @@ public class PlayerController : MonoBehaviour {
     public float jumpHeight;
     [Range(0, 1)]
     public float airControlPercent;
-    public static bool isWalking;
+    public static bool isWalking, attacking, isJumping, hasJumped;
     public GameObject weapon;
     private bool toggleWeapon;
 
@@ -98,8 +98,12 @@ public class PlayerController : MonoBehaviour {
         {
             MoveCharacter();
 
-            if (Input.GetKeyDown(KeyCode.Space) && GroundCollisionController.onGround)
+            if (Input.GetKeyDown(KeyCode.Space) && GroundCollisionController.onGround) {
+                isJumping = true;
                 Jump();
+                isJumping = false;
+                hasJumped = true;
+            }
         }
 
         if (Input.GetKeyDown("h")) {
@@ -132,6 +136,7 @@ public class PlayerController : MonoBehaviour {
         //Can start an attack if we aren't already attacking
         if (!isAttacking && Input.GetMouseButtonDown(0))
         {
+            attacking = true;
             isAttacking = true;
             attackStartTime = Time.time;
 

@@ -27,15 +27,16 @@ public class RagdollController : MonoBehaviour {
 
 	private JointDrive jointDrive;
 	
-	private bool standUp, preparingToStand;
+	public static bool standUp, isFalling;
 
 	private Quaternion previousRotation;
 
-	private float standupCounter, fallingTime;
+	public static float standupCounter, fallingTime, standupTimer;
 
 	// Use this for initialization
 	void Start () {
 		standupCounter = sleepOnFallTimer;
+		standupTimer = sleepOnFallTimer;
 		previousRotation = rootCOG.transform.localRotation;
 		print(previousRotation);
 		rootSlave = transform;
@@ -65,29 +66,22 @@ public class RagdollController : MonoBehaviour {
 
 	void Update() {
 		if (standUp) {
-			if (fallingTime > maxAllowedFallLength && !preparingToStand) {
-				print ("You fell for: " + fallingTime);
-				standupCounter += fallingTime;
-				preparingToStand = true;
-			} else if (fallingTime < maxAllowedFallLength) {
-				preparingToStand = false;
+			if (standupCounter < 0 || fallingTime < maxAllowedFallLength) {
 				fallingTime = 0;
+				standupCounter = sleepOnFallTimer;
 				rootCOG.transform.localRotation = Quaternion.Slerp(rootCOG.transform.localRotation, previousRotation, Time.deltaTime * standUpDelay);
 				rootCOG.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
 				ApplyJointValues(false);
-			}
-			if (standupCounter < 0) {
-				preparingToStand = false;
-				fallingTime = 0;
-				rootCOG.transform.localRotation = Quaternion.Slerp(rootCOG.transform.localRotation, previousRotation, Time.deltaTime * standUpDelay);
-				rootCOG.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
-				ApplyJointValues(false);
+			} 
+
+			if (standupCounter > 0) {
+				standupCounter -= Time.deltaTime;
+				print ("Time remaining to stand: " + standupCounter);
 			}
 		}
 
-		if (preparingToStand) {
-			standupCounter -= Time.deltaTime;
-			print ("Time remaining to stand: " + standupCounter);
+		if (PlayerController.hasJumped && fallingTime < maxAllowedFallLength) {
+			standupCounter = standupCounter / 4f;
 		}
 
 		if (rootCOG.transform.localRotation == previousRotation) {
@@ -95,11 +89,31 @@ public class RagdollController : MonoBehaviour {
 		}
 
 		if (!GroundCollisionController.onGround) {
-			fallingTime += Time.deltaTime;
+			standUp = false;
 			standupCounter = sleepOnFallTimer;
 			ApplyJointValues(true);
 			rootCOG.constraints = RigidbodyConstraints.None;
+			if (!PlayerController.hasJumped) {
+				isFalling = true;
+			}
 		} else {
+			isFalling = false;
+		}
+
+		if (isFalling) {
+			if (fallingTime < 5f) {
+				fallingTime += Time.deltaTime;	
+			}
+			
+			if (fallingTime > maxAllowedFallLength) {
+				isFalling = true;
+			}
+			print("Current Falling Time: " + fallingTime);
+
+		} else if (!isFalling && !standUp) {
+			standupCounter += fallingTime;
+			print ("You fell for: " + fallingTime);
+			//fallingTime = 0;
 			standUp = true;
 		}
 	}
@@ -124,8 +138,11 @@ public class RagdollController : MonoBehaviour {
 						}
 						boneTransforms.Key.GetComponent<ConfigurableJoint>().slerpDrive = jointDrive;
 					} else {
-						jointDrive.positionSpring = 0;
-						if (!boneTransforms.Key.name.ToLower().Contains("arm_r")) {
+						if (boneTransforms.Key.name.ToLower().Contains("arm_r") && PlayerController.attacking) {
+							jointDrive.positionSpring = defaultSpringValue;
+							boneTransforms.Key.GetComponent<ConfigurableJoint>().slerpDrive = jointDrive;
+						} else {
+							jointDrive.positionSpring = 0;
 							boneTransforms.Key.GetComponent<ConfigurableJoint>().slerpDrive = jointDrive;
 						}
 					}
