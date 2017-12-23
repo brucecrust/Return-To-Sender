@@ -23,16 +23,19 @@ public class RagdollController : MonoBehaviour {
 	// Holds slave / master key-value pairs to later compare rotations.
 	public static Dictionary<ConfigurableJoint, Transform> armatureDictionary;
 
-	public float defaultSpringValue, defaultDampenValue, standUpDelay;
+	public float defaultSpringValue, defaultDampenValue, standUpDelay, sleepOnFallTimer, maxAllowedFallLength;
 
 	private JointDrive jointDrive;
 	
-	private bool standUp;
+	private bool standUp, preparingToStand;
 
 	private Quaternion previousRotation;
 
+	private float standupCounter, fallingTime;
+
 	// Use this for initialization
 	void Start () {
+		standupCounter = sleepOnFallTimer;
 		previousRotation = rootCOG.transform.localRotation;
 		print(previousRotation);
 		rootSlave = transform;
@@ -62,20 +65,42 @@ public class RagdollController : MonoBehaviour {
 
 	void Update() {
 		if (standUp) {
-			rootCOG.transform.localRotation = Quaternion.Slerp(rootCOG.transform.localRotation, previousRotation, Time.deltaTime * standUpDelay);
-			rootCOG.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
-			ApplyJointValues(false);
+			if (fallingTime > maxAllowedFallLength && !preparingToStand) {
+				print ("You fell for: " + fallingTime);
+				standupCounter += fallingTime;
+				preparingToStand = true;
+			} else if (fallingTime < maxAllowedFallLength) {
+				preparingToStand = false;
+				fallingTime = 0;
+				rootCOG.transform.localRotation = Quaternion.Slerp(rootCOG.transform.localRotation, previousRotation, Time.deltaTime * standUpDelay);
+				rootCOG.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
+				ApplyJointValues(false);
+			}
+			if (standupCounter < 0) {
+				preparingToStand = false;
+				fallingTime = 0;
+				rootCOG.transform.localRotation = Quaternion.Slerp(rootCOG.transform.localRotation, previousRotation, Time.deltaTime * standUpDelay);
+				rootCOG.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
+				ApplyJointValues(false);
+			}
+		}
+
+		if (preparingToStand) {
+			standupCounter -= Time.deltaTime;
+			print ("Time remaining to stand: " + standupCounter);
 		}
 
 		if (rootCOG.transform.localRotation == previousRotation) {
 			standUp = false;
-		} else {
-			standUp = true;
 		}
 
 		if (!GroundCollisionController.onGround) {
+			fallingTime += Time.deltaTime;
+			standupCounter = sleepOnFallTimer;
 			ApplyJointValues(true);
 			rootCOG.constraints = RigidbodyConstraints.None;
+		} else {
+			standUp = true;
 		}
 	}
 
