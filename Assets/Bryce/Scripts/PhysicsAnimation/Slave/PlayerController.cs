@@ -46,6 +46,7 @@ public class PlayerController : MonoBehaviour {
 
     void Start()
     {
+        //staminaSlider.value = playerStats.maxStamina;
         // Adding a check for the Component `PlayerStatistics`, as it was throwing NullReferenceException errors.
         if (GetComponent<PlayerStatistics>()) {
             playerStats = GetComponent<PlayerStatistics>();
@@ -217,6 +218,7 @@ public class PlayerController : MonoBehaviour {
             //Reduce player stamina
             if (running && inputDir != Vector2.zero)
             {
+                masterAnimator.SetBool("Sprint", true);
                 playerStats.currentStamina -= Time.deltaTime * staminaLoss;
                 staminaSlider.value = playerStats.currentStamina / playerStats.maxStamina;
             }
@@ -226,6 +228,7 @@ public class PlayerController : MonoBehaviour {
 
         if (!running && playerStats.currentStamina < playerStats.maxStamina)
         {
+            masterAnimator.SetBool("Sprint", false);
             playerStats.currentStamina += Time.deltaTime * staminaLoss * 0.75f;
             staminaSlider.value = playerStats.currentStamina / playerStats.maxStamina;
         }

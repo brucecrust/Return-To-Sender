@@ -38,7 +38,6 @@ public class RagdollController : MonoBehaviour {
 		standupCounter = sleepOnFallTimer;
 		standupTimer = sleepOnFallTimer;
 		previousRotation = rootCOG.transform.localRotation;
-		print(previousRotation);
 		rootSlave = transform;
 
 		if (Mathf.Abs(Physics.gravity.y) > 9.81f) {
@@ -76,7 +75,6 @@ public class RagdollController : MonoBehaviour {
 
 			if (standupCounter > 0) {
 				standupCounter -= Time.deltaTime;
-				print ("Time remaining to stand: " + standupCounter);
 			}
 		}
 
@@ -108,11 +106,9 @@ public class RagdollController : MonoBehaviour {
 			if (fallingTime > maxAllowedFallLength) {
 				isFalling = true;
 			}
-			print("Current Falling Time: " + fallingTime);
 
 		} else if (!isFalling && !standUp) {
 			standupCounter += fallingTime;
-			print ("You fell for: " + fallingTime);
 			//fallingTime = 0;
 			standUp = true;
 		}
@@ -139,7 +135,7 @@ public class RagdollController : MonoBehaviour {
 						boneTransforms.Key.GetComponent<ConfigurableJoint>().slerpDrive = jointDrive;
 					} else {
 						if (boneTransforms.Key.name.ToLower().Contains("arm_r") && PlayerController.attacking) {
-							jointDrive.positionSpring = defaultSpringValue;
+							jointDrive.positionSpring = defaultSpringValue; 
 							boneTransforms.Key.GetComponent<ConfigurableJoint>().slerpDrive = jointDrive;
 						} else {
 							jointDrive.positionSpring = 0;
