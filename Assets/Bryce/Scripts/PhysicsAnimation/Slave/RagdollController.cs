@@ -14,7 +14,7 @@ public class RagdollController : MonoBehaviour {
 	// Declare root slave and master models.
 	private Transform rootSlave;
 	public Transform rootMaster;
-	public Rigidbody rootCoG;
+	public Rigidbody rootCOG;
 
 	// Lists used to store transforms from their respective slave / master model.
 	public ConfigurableJoint[] slaveTransforms;
@@ -23,14 +23,18 @@ public class RagdollController : MonoBehaviour {
 	// Holds slave / master key-value pairs to later compare rotations.
 	public static Dictionary<ConfigurableJoint, Transform> armatureDictionary;
 
-	public float defaultSpringValue;
+	public float defaultSpringValue, defaultDampenValue, standUpDelay;
 
 	private JointDrive jointDrive;
 	
-	private bool onGround;
+	private bool standUp;
+
+	private Quaternion previousRotation;
 
 	// Use this for initialization
 	void Start () {
+		previousRotation = rootCOG.transform.localRotation;
+		print(previousRotation);
 		rootSlave = transform;
 
 		if (Mathf.Abs(Physics.gravity.y) > 9.81f) {
@@ -57,10 +61,21 @@ public class RagdollController : MonoBehaviour {
 	}
 
 	void Update() {
+		if (standUp) {
+			rootCOG.transform.localRotation = Quaternion.Slerp(rootCOG.transform.localRotation, previousRotation, Time.deltaTime * standUpDelay);
+			rootCOG.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
+			ApplyJointValues(false);
+		}
+
+		if (rootCOG.transform.localRotation == previousRotation) {
+			standUp = false;
+		} else {
+			standUp = true;
+		}
+
 		if (!GroundCollisionController.onGround) {
 			ApplyJointValues(true);
-		} else {
-			ApplyJointValues(false);
+			rootCOG.constraints = RigidbodyConstraints.None;
 		}
 	}
 
@@ -70,23 +85,25 @@ public class RagdollController : MonoBehaviour {
 			}
 	}
 
-	private void ApplyJointValues (bool ragdoll) {
+	private void ApplyJointValues (bool isRagdoll) {
 			foreach(KeyValuePair<ConfigurableJoint, Transform> boneTransforms in armatureDictionary) {
 				if (boneTransforms.Key.GetComponent<ConfigurableJoint>()) {
 					jointDrive = new JointDrive();
 					jointDrive.maximumForce = float.MaxValue;
-					if (!ragdoll) {
-						jointDrive.positionDamper = defaultSpringValue / 10f;
-						if (boneTransforms.Key.name.ToLower().Contains("lower")) {
+					if (!isRagdoll) {
+						jointDrive.positionDamper = defaultDampenValue;
+						if (boneTransforms.Key.name.ToLower().Contains("lower") || !boneTransforms.Key.name.ToLower().Contains("_r")) {
 							jointDrive.positionSpring = defaultSpringValue / 2f;
 						} else {
 							jointDrive.positionSpring = defaultSpringValue;
 						}
-						
+						boneTransforms.Key.GetComponent<ConfigurableJoint>().slerpDrive = jointDrive;
 					} else {
 						jointDrive.positionSpring = 0;
+						if (!boneTransforms.Key.name.ToLower().Contains("arm_r")) {
+							boneTransforms.Key.GetComponent<ConfigurableJoint>().slerpDrive = jointDrive;
+						}
 					}
-					boneTransforms.Key.GetComponent<ConfigurableJoint>().slerpDrive = jointDrive;
 				}
 			}
 	}
