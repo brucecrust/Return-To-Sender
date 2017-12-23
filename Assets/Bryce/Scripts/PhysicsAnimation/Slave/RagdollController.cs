@@ -127,7 +127,7 @@ public class RagdollController : MonoBehaviour {
 					jointDrive.maximumForce = float.MaxValue;
 					if (!isRagdoll) {
 						jointDrive.positionDamper = defaultDampenValue;
-						if (boneTransforms.Key.name.ToLower().Contains("lower") || !boneTransforms.Key.name.ToLower().Contains("_r")) {
+						if (boneTransforms.Key.name.ToLower().Contains("lower") && !boneTransforms.Key.name.ToLower().Contains("_r")) {
 							jointDrive.positionSpring = defaultSpringValue / 2f;
 						} else {
 							jointDrive.positionSpring = defaultSpringValue;
@@ -135,7 +135,7 @@ public class RagdollController : MonoBehaviour {
 						boneTransforms.Key.GetComponent<ConfigurableJoint>().slerpDrive = jointDrive;
 					} else {
 						if (boneTransforms.Key.name.ToLower().Contains("arm_r") && PlayerController.attacking) {
-							jointDrive.positionSpring = defaultSpringValue; 
+							jointDrive.positionSpring = defaultSpringValue;
 							boneTransforms.Key.GetComponent<ConfigurableJoint>().slerpDrive = jointDrive;
 						} else {
 							jointDrive.positionSpring = 0;
