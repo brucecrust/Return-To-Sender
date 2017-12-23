@@ -338,22 +338,22 @@ ConfigurableJoint:
     spring: 0
     damper: 0
   m_LowAngularXLimit:
-    limit: -20
+    limit: -40
     bounciness: 0
     contactDistance: 0
   m_HighAngularXLimit:
-    limit: 20
+    limit: 40
     bounciness: 0
     contactDistance: 0
   m_AngularYZLimitSpring:
     spring: 0
     damper: 0
   m_AngularYLimit:
-    limit: 10
+    limit: 50
     bounciness: 0
     contactDistance: 0
   m_AngularZLimit:
-    limit: 0
+    limit: 25
     bounciness: 0
     contactDistance: 0
   m_TargetPosition: {x: 0, y: 0, z: 0}
@@ -1147,11 +1147,11 @@ ConfigurableJoint:
     spring: 0
     damper: 0
   m_LowAngularXLimit:
-    limit: -30
+    limit: -120
     bounciness: 0
     contactDistance: 0
   m_HighAngularXLimit:
-    limit: 45
+    limit: 120
     bounciness: 0
     contactDistance: 0
   m_AngularYZLimitSpring:
@@ -5332,11 +5332,11 @@ MonoBehaviour:
   rootCOG: {fileID: 1952624206}
   slaveTransforms: []
   masterTransforms: []
-  defaultSpringValue: 2200
+  defaultSpringValue: 2000
   defaultDampenValue: 200
   standUpDelay: 0.75
-  sleepOnFallTimer: 0.8
-  maxAllowedFallLength: 1.25
+  sleepOnFallTimer: 0.5
+  maxAllowedFallLength: 1.75
 --- !u!95 &868428924
 Animator:
   serializedVersion: 3
@@ -5362,7 +5362,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 868428922}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 2687.0798, y: 658.7, z: 3098.8699}
+  m_LocalPosition: {x: 2687.0798, y: 627.26, z: 3098.8699}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 12634322}
@@ -8647,7 +8647,7 @@ ConfigurableJoint:
     spring: 0
     damper: 0
   m_AngularYLimit:
-    limit: 45
+    limit: 60
     bounciness: 0
     contactDistance: 0
   m_AngularZLimit:
@@ -9434,14 +9434,14 @@ ConfigurableJoint:
     bounciness: 0
     contactDistance: 0
   m_HighAngularXLimit:
-    limit: 70
+    limit: 20
     bounciness: 0
     contactDistance: 0
   m_AngularYZLimitSpring:
     spring: 0
     damper: 0
   m_AngularYLimit:
-    limit: 30
+    limit: 90
     bounciness: 0
     contactDistance: 0
   m_AngularZLimit:
@@ -9955,7 +9955,7 @@ ConfigurableJoint:
     spring: 0
     damper: 0
   m_AngularYLimit:
-    limit: 45
+    limit: 60
     bounciness: 0
     contactDistance: 0
   m_AngularZLimit:
@@ -10546,7 +10546,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: ad41ee54ac1a97a4a8d5bcf884920987, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6400000, guid: ad41ee54ac1a97a4a8d5bcf884920987, type: 3}
       propertyPath: m_Convex
@@ -10559,6 +10559,14 @@ Prefab:
     - target: {fileID: 100000, guid: ad41ee54ac1a97a4a8d5bcf884920987, type: 3}
       propertyPath: m_TagString
       value: Weapon
+      objectReference: {fileID: 0}
+    - target: {fileID: 6400000, guid: ad41ee54ac1a97a4a8d5bcf884920987, type: 3}
+      propertyPath: m_InflateMesh
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6400000, guid: ad41ee54ac1a97a4a8d5bcf884920987, type: 3}
+      propertyPath: m_SkinWidth
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ad41ee54ac1a97a4a8d5bcf884920987, type: 3}
@@ -11135,14 +11143,14 @@ ConfigurableJoint:
     bounciness: 0
     contactDistance: 0
   m_HighAngularXLimit:
-    limit: 70
+    limit: 20
     bounciness: 0
     contactDistance: 0
   m_AngularYZLimitSpring:
     spring: 0
     damper: 0
   m_AngularYLimit:
-    limit: 30
+    limit: 90
     bounciness: 0
     contactDistance: 0
   m_AngularZLimit:
@@ -11625,7 +11633,7 @@ ConfigurableJoint:
     bounciness: 0
     contactDistance: 0
   m_HighAngularXLimit:
-    limit: 25
+    limit: 40
     bounciness: 0
     contactDistance: 0
   m_AngularYZLimitSpring:
@@ -11636,7 +11644,7 @@ ConfigurableJoint:
     bounciness: 0
     contactDistance: 0
   m_AngularZLimit:
-    limit: 0
+    limit: 25
     bounciness: 0
     contactDistance: 0
   m_TargetPosition: {x: 0, y: 0, z: 0}
@@ -12164,22 +12172,22 @@ ConfigurableJoint:
     spring: 0
     damper: 0
   m_LowAngularXLimit:
-    limit: -30
+    limit: -120
     bounciness: 0
     contactDistance: 0
   m_HighAngularXLimit:
-    limit: 45
+    limit: 120
     bounciness: 0
     contactDistance: 0
   m_AngularYZLimitSpring:
     spring: 0
     damper: 0
   m_AngularYLimit:
-    limit: 120
+    limit: 90
     bounciness: 0
     contactDistance: 0
   m_AngularZLimit:
-    limit: 30
+    limit: 20
     bounciness: 0
     contactDistance: 0
   m_TargetPosition: {x: 0, y: 0, z: 0}
@@ -13423,7 +13431,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2013915310}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.00004, y: -0.00018, z: 0.01196}
+  m_LocalPosition: {x: -0.0001, y: -0.00055, z: 0.00848}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1660107281}
@@ -13438,8 +13446,8 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.001222688
-  m_Height: 0.005191533
+  m_Radius: 0.0008
+  m_Height: 0.01
   m_Direction: 2
   m_Center: {x: -2.2715603e-10, y: 0.00027368756, z: -0.00041708443}
 --- !u!153 &2013915313
@@ -13452,7 +13460,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0, y: 0, z: 0}
+  m_ConnectedAnchor: {x: -0.00010000456, y: -0.0005500952, z: 0.008479755}
   serializedVersion: 2
   m_SecondaryAxis: {x: 0, y: 1, z: 0}
   m_XMotion: 0

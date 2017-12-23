@@ -8,7 +8,7 @@ public class NPCHitDetection : MonoBehaviour {
 			if (gameObject.name.ToLower().Contains("cog")) {
 				GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
 			}
-			GetComponent<Rigidbody>().AddForce(-Vector3.right * 100f);
+			GetComponent<Rigidbody>().AddForce(Vector3.right * 100f);
 			NPCController.removedBodyParts += 1;
 			NPCController.armatureDictionary.Remove(GetComponent<ConfigurableJoint>());
 			Destroy(GetComponent<ConfigurableJoint>());		
