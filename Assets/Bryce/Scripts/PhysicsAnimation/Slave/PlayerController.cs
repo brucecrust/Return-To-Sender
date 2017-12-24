@@ -41,7 +41,6 @@ public class PlayerController : MonoBehaviour {
     [Range(0, 1)]
     public float airControlPercent;
     public static bool isWalking, attacking, isJumping, hasJumped;
-    public GameObject weapon;
     private bool toggleWeapon;
 
     private int currentClick;
@@ -281,7 +280,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     void ToggleWeapon(bool toggle) {
-        weapon.SetActive(toggle);
+        currentWeapon.SetActive(toggle);
     }
 
     void Jump()
