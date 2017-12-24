@@ -9,6 +9,7 @@ public class NPCGroundCollisionController : MonoBehaviour {
 			onGround = true;
 		}
 		NPCController.isFalling = false;
+		RagdollController.standUp = true;
 	}
 
 	void OnTriggerStay(Collider other) {

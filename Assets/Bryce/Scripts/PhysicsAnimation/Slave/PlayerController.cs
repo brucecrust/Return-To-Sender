@@ -44,8 +44,17 @@ public class PlayerController : MonoBehaviour {
     public GameObject weapon;
     private bool toggleWeapon;
 
+    private int currentClick;
+
+    public GameObject[] weaponsList;
+    private GameObject currentWeapon;
+    private int currentWeaponIndex, maxWeaponIndexes;
+
     void Start()
     {
+        maxWeaponIndexes = weaponsList.Length;
+        currentWeapon = weaponsList[currentWeaponIndex];
+        currentWeaponIndex = 0;
         //staminaSlider.value = playerStats.maxStamina;
         // Adding a check for the Component `PlayerStatistics`, as it was throwing NullReferenceException errors.
         if (GetComponent<PlayerStatistics>()) {
@@ -83,6 +92,10 @@ public class PlayerController : MonoBehaviour {
 
     void Update()
     {
+        if (Input.GetKeyDown("n")) {
+            ChangeWeapon();
+        }
+
         FocusRaycast();
 
         //Handles locking the cursor to the center of the screen and making it invisible
@@ -91,7 +104,7 @@ public class PlayerController : MonoBehaviour {
         //Initiating an attack
         if (CheckAttacking())
         {
-            HandleAttack();
+            HandleAttack(currentClick);
         }
 
         //Movement and Jumping
@@ -135,8 +148,13 @@ public class PlayerController : MonoBehaviour {
             isAttacking = false;
 
         //Can start an attack if we aren't already attacking
-        if (!isAttacking && Input.GetMouseButtonDown(0))
+        if (!isAttacking && (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1)))
         {
+            if (Input.GetMouseButtonDown(0)) {
+                currentClick = 0;
+            } else if (Input.GetMouseButtonDown(1)) {
+                currentClick = 1;
+            }
             attacking = true;
             isAttacking = true;
             attackStartTime = Time.time;
@@ -146,10 +164,27 @@ public class PlayerController : MonoBehaviour {
         else return false;
     }
 
-    private void HandleAttack()
+    private void HandleAttack(int attackButton)
     {
-        masterAnimator.SetTrigger("Attack");
+        if (attackButton == 0) {
+            masterAnimator.SetTrigger("Attack");
+        } else if (attackButton == 1) {
+            masterAnimator.SetTrigger("SecondAttack");
+        }
+    }
 
+    private void ChangeWeapon() {
+        if (currentWeaponIndex < maxWeaponIndexes) {
+            currentWeaponIndex += 1;
+        } else {
+            currentWeaponIndex = 0;
+        }
+        
+        currentWeapon.SetActive(false);
+        currentWeapon = weaponsList[currentWeaponIndex];
+        print(currentWeapon.name);
+        print(currentWeaponIndex);
+        currentWeapon.SetActive(true);
     }
 
     public void RegisterUnarmedCollision(GameObject other)

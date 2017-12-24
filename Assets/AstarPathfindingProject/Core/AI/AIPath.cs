@@ -39,6 +39,7 @@ using Pathfinding.Util;
 [AddComponentMenu("Pathfinding/AI/AIPath (2D,3D)")]
 [HelpURL("http://arongranberg.com/astar/docs/class_a_i_path.php")]
 public class AIPath : AIBase {
+	public Animator animator;
 	/** Determines how often it will search for new paths.
 	 * If you have fast moving targets or AIs, you might want to set it to a lower value.
 	 * The value is in seconds between path requests.
@@ -261,11 +262,14 @@ public class AIPath : AIBase {
 
 	/** Called during either Update or FixedUpdate depending on if rigidbodies are used for movement or not */
 	protected override void MovementUpdate (float deltaTime) {
-		if (!canMove) return;
-
+		if (!canMove)
+			return;
+		
 		if (!interpolator.valid) {
+			animator.SetBool("isWalking", false);
 			velocity2D = Vector3.zero;
 		} else {
+			animator.SetBool("isWalking", true);
 			var currentPosition = tr.position;
 
 			interpolator.MoveToLocallyClosestPoint(currentPosition, true, false);

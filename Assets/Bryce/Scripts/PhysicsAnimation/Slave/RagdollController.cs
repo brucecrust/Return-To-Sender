@@ -25,7 +25,7 @@ public class RagdollController : MonoBehaviour {
 
 	public float defaultSpringValue, defaultDampenValue, standUpDelay, sleepOnFallTimer, maxAllowedFallLength;
 
-	private JointDrive jointDrive;
+	public JointDrive jointDrive;
 	
 	public static bool standUp, isFalling;
 
@@ -64,6 +64,24 @@ public class RagdollController : MonoBehaviour {
 	}
 
 	void Update() {
+		if (Input.GetMouseButtonDown(0)) {
+			foreach(KeyValuePair<ConfigurableJoint, Transform> boneTransforms in armatureDictionary) {
+				if (boneTransforms.Key.name.ToLower().Contains("arm_r")) {
+					jointDrive.positionSpring = defaultSpringValue / 5f;
+					boneTransforms.Key.slerpDrive = jointDrive;
+				}
+			}
+		}
+
+		if (Input.GetMouseButtonUp(0)) {
+			foreach(KeyValuePair<ConfigurableJoint, Transform> boneTransforms in armatureDictionary) {
+				if (boneTransforms.Key.name.ToLower().Contains("arm_r")) {
+					jointDrive.positionSpring = defaultSpringValue / 5f;
+					boneTransforms.Key.slerpDrive = jointDrive;
+				}
+			}
+		}
+
 		if (standUp) {
 			if (standupCounter < 0 || fallingTime < maxAllowedFallLength) {
 				fallingTime = 0;
@@ -71,6 +89,7 @@ public class RagdollController : MonoBehaviour {
 				rootCOG.transform.localRotation = Quaternion.Slerp(rootCOG.transform.localRotation, previousRotation, Time.deltaTime * standUpDelay);
 				rootCOG.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
 				ApplyJointValues(false);
+				standUp = false;
 			} 
 
 			if (standupCounter > 0) {
@@ -82,9 +101,6 @@ public class RagdollController : MonoBehaviour {
 			standupCounter = standupCounter / 4f;
 		}
 
-		if (rootCOG.transform.localRotation == previousRotation) {
-			standUp = false;
-		}
 
 		if (!GroundCollisionController.onGround) {
 			standUp = false;
@@ -96,6 +112,7 @@ public class RagdollController : MonoBehaviour {
 			}
 		} else {
 			isFalling = false;
+			standUp = true;
 		}
 
 		if (isFalling) {
@@ -107,10 +124,6 @@ public class RagdollController : MonoBehaviour {
 				isFalling = true;
 			}
 
-		} else if (!isFalling && !standUp) {
-			standupCounter += fallingTime;
-			//fallingTime = 0;
-			standUp = true;
 		}
 	}
 
